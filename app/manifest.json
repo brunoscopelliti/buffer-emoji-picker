@@ -1,0 +1,19 @@
+{
+  "manifest_version": 2,
+
+  "name": "Buffer Emoji Picker",
+  "description": "Loads an emoji picker",
+  "version": "0.1",
+
+  "content_scripts": [
+    {
+      "matches": ["https://buffer.com/app/profile/*"],
+      "js": ["emoji-picker.js"],
+      "css": ["app.css"]
+    }
+  ],
+
+  "permissions": [
+    "activeTab"
+  ]
+}
