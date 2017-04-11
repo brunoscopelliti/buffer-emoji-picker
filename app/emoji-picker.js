@@ -29,3 +29,19 @@ const observer = new MutationObserver(mutations => {
 });
 
 observer.observe(shareBox, { childList: true });
+
+
+const injectTemplate = async (path) => {
+  const template = await fetch(path);
+
+  const templateEl = document.createElement('template');
+
+  templateEl.id = 'poc';
+  templateEl.innerHTML = await template.text();
+
+  document.body.appendChild(templateEl);
+};
+
+
+injectTemplate(chrome.runtime.getURL('templates/picker.html'));
+

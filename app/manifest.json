@@ -13,6 +13,8 @@
     }
   ],
 
+  "web_accessible_resources": ["/templates/*.html"],
+
   "permissions": [
     "activeTab"
   ]
