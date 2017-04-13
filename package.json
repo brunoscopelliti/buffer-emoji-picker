@@ -4,7 +4,8 @@
   "description": "An emoji picker addons for Buffer",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build:css": "node-sass css/app.scss app/app.css --output-style=compressed",
+    "watch:css": "npm run build:css -- -w"
   },
   "repository": {
     "type": "git",
@@ -18,5 +19,8 @@
   "bugs": {
     "url": "https://github.com/brunoscopelliti/buffer-emoji-picker/issues"
   },
-  "homepage": "https://github.com/brunoscopelliti/buffer-emoji-picker#readme"
+  "homepage": "https://github.com/brunoscopelliti/buffer-emoji-picker#readme",
+  "devDependencies": {
+    "node-sass": "4.5.2"
+  }
 }
