@@ -1,92 +1,66 @@
 
-// I'm using Mutation Observers
-// https://developers.google.com/web/updates/2012/02/Detect-DOM-changes-with-Mutation-Observers
-
-// Emoji https://github.com/scotch-io/All-Github-Emoji-Icons
-
 import {
   writingAreaSelector,
   genericWritingAreaSelector,
-  editorInputId,
-  editorInputIdSelector,
-  uploaderButtonId,
-  uploaderButtonIdSelector,
-  dialogLayerClassName,
-  dialogLayerClassSelector
-} from './selectors';
+  uploaderButtonSelector,
+  dialogLayerClassName
+} from 'selectors';
+
+import createButton from 'picker';
+
+import { pickerButtonSelector } from 'picker/selectors';
 
 
+/**
+ * Determines whether the given `element` already contains
+ * the emoji picker button.
+ * @name isPickerButtonReady
+ * @param {HTMLElment} element
+ * 
+ * @returns {Boolean}
+ */
+const isPickerButtonReady = element => element.querySelector(pickerButtonSelector) != null;
 
-const observer = new MutationObserver(mutations => {
-  const isComposing = document.getElementById(editorInputId) != null;
-
-  if (isComposing){
-    const siblingRef = document.getElementById(uploaderButtonId);
-
-    const directAncestor = siblingRef.parentElement;
-
-    if (isPickerButtonReady(directAncestor)){
-      return;
-    }
-
-
-    const PARENT_SHARER = parentEditor(directAncestor);
-    siblingRef.before(createButton(PARENT_SHARER));
-  }
-});
-
-observer.observe(document.querySelector(writingAreaSelector), { childList: true });
-
-
-
-
-
-
-const layerObserver = new MutationObserver(mutations => {
-  const layer = document.getElementsByClassName(dialogLayerClassName)[0];
-  
-  if (layer == null){
+/**
+ * Inject the emoji picker button in the page.
+ * @name tryInjectButton
+ * @param {HTMLElement} pivotEl Button will be created just before this element
+ */
+const tryInjectButton = (pivotEl) => {
+  if (pivotEl == null){
     return;
   }
 
-  const siblingRef = layer.querySelector(uploaderButtonIdSelector);
+  const directAncestorEl = pivotEl.parentElement;
 
-  if (siblingRef == null){
+  if (isPickerButtonReady(directAncestorEl)){
     return;
   }
 
-  const directAncestor = siblingRef.parentElement;
-
-
-  if (isPickerButtonReady(directAncestor)){
-    return;
-  }
-
-  const PARENT_SHARER = parentEditor(directAncestor);
-
-
-  siblingRef.before(createButton(PARENT_SHARER));
-  
-});
-
-layerObserver.observe(document.body, { childList: true });
+  const editorContainerEl = parentEditor(directAncestorEl);
+  const buttonEl = createButton(editorContainerEl);
+  pivotEl.before(buttonEl);
+};
 
 
 
+/**
+ * Since DOM changes out of my control,
+ * should use Mutation Observers (http://bit.ly/2o8ZjVd)
+ * to assure that when the user enters in editing mode
+ * the picker button is injected.
+ */
 
 
-
-
-
-const pickerButtonClassName = 'chrome-ext-emoji-picker-button';
-const pickerButtonSelector = '.' + pickerButtonClassName;
-
-
-
-
-
-// I cannot safely rely on document.getElementById,
-// because under some circumstances there are duplicated id in the page.
+/**
+ * Also under some circumstances there're duplicated id in the page.
+ * For instance, it happens when I open an already scheduled tweet,
+ * in editing mode.
+ * So I cannot safely rely on document.getElementById().
+ * 
+ * ... so should always determine which is the context in which user
+ * is using the picker.
+ */
 
 
 /**
@@ -121,34 +95,33 @@ const parentEditor = parent.bind(null, genericWritingAreaSelector);
 
 
 
-
-
-const createButton = (parentEl, id) => {
-  
-  const button = document.createElement('button');
-  button.className = pickerButtonClassName;
-  button.textContent = '😃';
-
-  button.addEventListener('click', () => {
-    const input = parentEl.querySelector(editorInputIdSelector);
-
-    input.value = input.value + ' 🚀';
-    input.dispatchEvent(new KeyboardEvent('keyup', { bubbles: true, cancelable: true }));
-  });
-
-  return button;
-};
-
-
 /**
- * Determines whether the given `element` already contains
- * the emoji picker button.
- * @name isPickerButtonReady
- * @param {HTMLElment} element
- * 
- * @returns {Boolean}
+ * Setup mutations observers
  */
-const isPickerButtonReady = (element) => element.querySelector(pickerButtonSelector) != null;
+
+const editorObserver = new MutationObserver(mutations => {
+  const target = mutations[0].target;
+  const pivotEl = target.querySelector(uploaderButtonSelector);
+  tryInjectButton(pivotEl);
+});
+
+editorObserver.observe(document.querySelector(writingAreaSelector), { childList: true });
+
+
+
+const layerObserver = new MutationObserver(mutations => {
+  const layer = document.getElementsByClassName(dialogLayerClassName)[0];
+  if (layer == null){
+    return;
+  }
+
+  const pivotEl = layer.querySelector(uploaderButtonSelector);
+  tryInjectButton(pivotEl);
+});
+
+layerObserver.observe(document.body, { childList: true });
+
+
 
 
 

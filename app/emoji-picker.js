@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 1);
+/******/ 	return __webpack_require__(__webpack_require__.s = 3);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -71,30 +71,11 @@
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return writingAreaSelector; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "f", function() { return genericWritingAreaSelector; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return editorInputId; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "g", function() { return editorInputIdSelector; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return uploaderButtonId; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return uploaderButtonIdSelector; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return dialogLayerClassName; });
-/* unused harmony export dialogLayerClassSelector */
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return pickerButtonClassName; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return pickerButtonSelector; });
 
-// ... Since I've no control over the HTML
-
-const writingAreaSelector = '#overlay-wrapper:not(.ui-dialog-content) #sharer';
-const genericWritingAreaSelector = '#sharer';
-
-const editorInputId = 'composer';
-const editorInputIdSelector = '#composer';
-
-const uploaderButtonId = 'media-uploader';
-const uploaderButtonIdSelector = '#media-uploader';
-
-const dialogLayerClassName = 'ui-dialog';
-const dialogLayerClassSelector = '.ui-dialog';
-
-
+const pickerButtonClassName = 'chrome-ext-emoji-picker-button';
+const pickerButtonSelector = '.' + pickerButtonClassName;
 
 
 
@@ -103,88 +84,121 @@ const dialogLayerClassSelector = '.ui-dialog';
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return writingAreaSelector; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return genericWritingAreaSelector; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return editorInputSelector; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return uploaderButtonSelector; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return dialogLayerClassName; });
+
+// Since I've no control over the HTML
+// ... at least want to change DOM ref in the least painful way.
+
+const writingAreaSelector = '#overlay-wrapper:not(.ui-dialog-content) #sharer';
+const genericWritingAreaSelector = '#sharer';
+const editorInputSelector = '#composer';
+const uploaderButtonSelector = '#media-uploader';
+const dialogLayerClassName = 'ui-dialog';
+
+
+
+
+
+/***/ }),
+/* 2 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__selectors__ = __webpack_require__(0);
-
-// I'm using Mutation Observers
-// https://developers.google.com/web/updates/2012/02/Detect-DOM-changes-with-Mutation-Observers
-
-// Emoji https://github.com/scotch-io/All-Github-Emoji-Icons
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_selectors__ = __webpack_require__(1);
 
 
 
 
+const createButton = (parentEl) => {
+  const button = document.createElement('button');
+  button.className = __WEBPACK_IMPORTED_MODULE_0__selectors__["b" /* pickerButtonClassName */];
+  button.textContent = '😃';
 
-const observer = new MutationObserver(mutations => {
-  const isComposing = document.getElementById(__WEBPACK_IMPORTED_MODULE_0__selectors__["a" /* editorInputId */]) != null;
+  button.addEventListener('click', () => {
+    // TODO: that's mostly a POC
+    const input = parentEl.querySelector(__WEBPACK_IMPORTED_MODULE_1_selectors__["e" /* editorInputSelector */]);
+    input.value = input.value + ' 🚀';
+    input.dispatchEvent(new KeyboardEvent('keyup', { bubbles: true, cancelable: true }));
+  });
 
-  if (isComposing){
-    const siblingRef = document.getElementById(__WEBPACK_IMPORTED_MODULE_0__selectors__["b" /* uploaderButtonId */]);
+  return button;
+};
 
-    const directAncestor = siblingRef.parentElement;
-
-    if (isPickerButtonReady(directAncestor)){
-      return;
-    }
-
-
-    const PARENT_SHARER = parentEditor(directAncestor);
-    siblingRef.before(createButton(PARENT_SHARER));
-  }
-});
-
-observer.observe(document.querySelector(__WEBPACK_IMPORTED_MODULE_0__selectors__["c" /* writingAreaSelector */]), { childList: true });
+/* harmony default export */ __webpack_exports__["a"] = (createButton);
 
 
+/***/ }),
+/* 3 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_selectors__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_picker__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_picker_selectors__ = __webpack_require__(0);
 
 
 
 
-const layerObserver = new MutationObserver(mutations => {
-  const layer = document.getElementsByClassName(__WEBPACK_IMPORTED_MODULE_0__selectors__["d" /* dialogLayerClassName */])[0];
-  
-  if (layer == null){
+
+
+
+
+/**
+ * Determines whether the given `element` already contains
+ * the emoji picker button.
+ * @name isPickerButtonReady
+ * @param {HTMLElment} element
+ * 
+ * @returns {Boolean}
+ */
+const isPickerButtonReady = element => element.querySelector(__WEBPACK_IMPORTED_MODULE_2_picker_selectors__["a" /* pickerButtonSelector */]) != null;
+
+/**
+ * Inject the emoji picker button in the page.
+ * @name tryInjectButton
+ * @param {HTMLElement} pivotEl Button will be created just before this element
+ */
+const tryInjectButton = (pivotEl) => {
+  if (pivotEl == null){
     return;
   }
 
-  const siblingRef = layer.querySelector(__WEBPACK_IMPORTED_MODULE_0__selectors__["e" /* uploaderButtonIdSelector */]);
+  const directAncestorEl = pivotEl.parentElement;
 
-  if (siblingRef == null){
+  if (isPickerButtonReady(directAncestorEl)){
     return;
   }
 
-  const directAncestor = siblingRef.parentElement;
-
-
-  if (isPickerButtonReady(directAncestor)){
-    return;
-  }
-
-  const PARENT_SHARER = parentEditor(directAncestor);
-
-
-  siblingRef.before(createButton(PARENT_SHARER));
-  
-});
-
-layerObserver.observe(document.body, { childList: true });
+  const editorContainerEl = parentEditor(directAncestorEl);
+  const buttonEl = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1_picker__["a" /* default */])(editorContainerEl);
+  pivotEl.before(buttonEl);
+};
 
 
 
+/**
+ * Since DOM changes out of my control,
+ * should use Mutation Observers (http://bit.ly/2o8ZjVd)
+ * to assure that when the user enters in editing mode
+ * the picker button is injected.
+ */
 
 
-
-
-
-const pickerButtonClassName = 'chrome-ext-emoji-picker-button';
-const pickerButtonSelector = '.' + pickerButtonClassName;
-
-
-
-
-
-// I cannot safely rely on document.getElementById,
-// because under some circumstances there are duplicated id in the page.
+/**
+ * Also under some circumstances there're duplicated id in the page.
+ * For instance, it happens when I open an already scheduled tweet,
+ * in editing mode.
+ * So I cannot safely rely on document.getElementById().
+ * 
+ * ... so should always determine which is the context in which user
+ * is using the picker.
+ */
 
 
 /**
@@ -214,39 +228,38 @@ const parent = (selector, element) => {
  * 
  * @return {HTMLElement|null}
  */
-const parentEditor = parent.bind(null, __WEBPACK_IMPORTED_MODULE_0__selectors__["f" /* genericWritingAreaSelector */]);
+const parentEditor = parent.bind(null, __WEBPACK_IMPORTED_MODULE_0_selectors__["a" /* genericWritingAreaSelector */]);
 
 
-
-
-
-
-const createButton = (parentEl, id) => {
-  
-  const button = document.createElement('button');
-  button.className = pickerButtonClassName;
-  button.textContent = '😃';
-
-  button.addEventListener('click', () => {
-    const input = parentEl.querySelector(__WEBPACK_IMPORTED_MODULE_0__selectors__["g" /* editorInputIdSelector */]);
-
-    input.value = input.value + ' 🚀';
-    input.dispatchEvent(new KeyboardEvent('keyup', { bubbles: true, cancelable: true }));
-  });
-
-  return button;
-};
 
 
 /**
- * Determines whether the given `element` already contains
- * the emoji picker button.
- * @name isPickerButtonReady
- * @param {HTMLElment} element
- * 
- * @returns {Boolean}
+ * Setup mutations observers
  */
-const isPickerButtonReady = (element) => element.querySelector(pickerButtonSelector) != null;
+
+const editorObserver = new MutationObserver(mutations => {
+  const target = mutations[0].target;
+  const pivotEl = target.querySelector(__WEBPACK_IMPORTED_MODULE_0_selectors__["b" /* uploaderButtonSelector */]);
+  tryInjectButton(pivotEl);
+});
+
+editorObserver.observe(document.querySelector(__WEBPACK_IMPORTED_MODULE_0_selectors__["c" /* writingAreaSelector */]), { childList: true });
+
+
+
+const layerObserver = new MutationObserver(mutations => {
+  const layer = document.getElementsByClassName(__WEBPACK_IMPORTED_MODULE_0_selectors__["d" /* dialogLayerClassName */])[0];
+  if (layer == null){
+    return;
+  }
+
+  const pivotEl = layer.querySelector(__WEBPACK_IMPORTED_MODULE_0_selectors__["b" /* uploaderButtonSelector */]);
+  tryInjectButton(pivotEl);
+});
+
+layerObserver.observe(document.body, { childList: true });
+
+
 
 
 
