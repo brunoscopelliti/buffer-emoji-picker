@@ -71,11 +71,16 @@
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return pickerButtonClassName; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return pickerButtonClassName; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return pickerButtonSelector; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return pickerTemplateId; });
+/* unused harmony export pickerTemplateSelector */
 
 const pickerButtonClassName = 'chrome-ext-emoji-picker-button';
 const pickerButtonSelector = '.' + pickerButtonClassName;
+
+const pickerTemplateId = 'chrome-ext-emoji-picker-template';
+const pickerTemplateSelector = '#' + pickerTemplateId;
 
 
 
@@ -116,7 +121,7 @@ const dialogLayerClassName = 'ui-dialog';
 
 const createButton = (parentEl) => {
   const button = document.createElement('button');
-  button.className = __WEBPACK_IMPORTED_MODULE_0__selectors__["b" /* pickerButtonClassName */];
+  button.className = __WEBPACK_IMPORTED_MODULE_0__selectors__["c" /* pickerButtonClassName */];
   button.textContent = '😃';
 
   button.addEventListener('click', () => {
@@ -149,7 +154,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_selectors__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_picker__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_picker_selectors__ = __webpack_require__(0);
-
 
 
 
@@ -251,7 +255,14 @@ const editorObserver = new MutationObserver(mutations => {
   tryInjectButton(pivotEl);
 });
 
-editorObserver.observe(document.querySelector(__WEBPACK_IMPORTED_MODULE_0_selectors__["c" /* writingAreaSelector */]), { childList: true });
+
+// TODO should handle the case user does not land in the `Content` tab.
+// Useful reference: http://stackoverflow.com/questions/13806307/how-to-insert-content-script-in-google-chrome-extension-when-page-was-changed-vi
+const editor = document.querySelector(__WEBPACK_IMPORTED_MODULE_0_selectors__["c" /* writingAreaSelector */]);
+
+if (editor != null) {
+  editorObserver.observe(document.querySelector(__WEBPACK_IMPORTED_MODULE_0_selectors__["c" /* writingAreaSelector */]), { childList: true });
+}
 
 
 
@@ -270,28 +281,34 @@ layerObserver.observe(document.body, { childList: true });
 
 
 
+/**
+ * Inject templates for later usage
+ */
 
+/**
+ * Inject into the main page a template,
+ * fetching its content from the provided `path`.
+ * @name injectTemplate
+ * @param {String} path
+ * @param {String} templateId
+ * 
+ * @return {Promise<undefined>}
+ */
+const injectTemplate = async (path, templateId) => {
+  const template = await fetch(path);
 
+  const templateEl = document.createElement('template');
+  templateEl.id = templateId;
+  templateEl.innerHTML = await template.text();
 
-// const injectTemplate = async (path) => {
-//   const template = await fetch(path);
+  document.body.appendChild(templateEl);
+};
 
-//   const templateEl = document.createElement('template');
+const pickerTemplatePath = chrome.runtime.getURL('templates/picker.html');
 
-//   templateEl.id = 'poc';
-//   templateEl.innerHTML = await template.text();
+// TODO handle loading failures
 
-//   document.body.appendChild(templateEl);
-// };
-
-
-// injectTemplate(chrome.runtime.getURL('templates/picker.html'));
-
-
-
-
-
-
+injectTemplate(pickerTemplatePath, __WEBPACK_IMPORTED_MODULE_2_picker_selectors__["b" /* pickerTemplateId */]);
 
 
 /***/ })

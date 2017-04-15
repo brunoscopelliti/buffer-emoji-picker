@@ -8,8 +8,7 @@ import {
 
 import createButton from 'picker';
 
-import { pickerButtonSelector } from 'picker/selectors';
-
+import { pickerButtonSelector, pickerTemplateId } from 'picker/selectors';
 
 /**
  * Determines whether the given `element` already contains
@@ -105,7 +104,14 @@ const editorObserver = new MutationObserver(mutations => {
   tryInjectButton(pivotEl);
 });
 
-editorObserver.observe(document.querySelector(writingAreaSelector), { childList: true });
+
+// TODO should handle the case user does not land in the `Content` tab.
+// Useful reference: http://stackoverflow.com/questions/13806307/how-to-insert-content-script-in-google-chrome-extension-when-page-was-changed-vi
+const editor = document.querySelector(writingAreaSelector);
+
+if (editor != null) {
+  editorObserver.observe(document.querySelector(writingAreaSelector), { childList: true });
+}
 
 
 
@@ -124,25 +130,31 @@ layerObserver.observe(document.body, { childList: true });
 
 
 
+/**
+ * Inject templates for later usage
+ */
 
+/**
+ * Inject into the main page a template,
+ * fetching its content from the provided `path`.
+ * @name injectTemplate
+ * @param {String} path
+ * @param {String} templateId
+ * 
+ * @return {Promise<undefined>}
+ */
+const injectTemplate = async (path, templateId) => {
+  const template = await fetch(path);
 
+  const templateEl = document.createElement('template');
+  templateEl.id = templateId;
+  templateEl.innerHTML = await template.text();
 
-// const injectTemplate = async (path) => {
-//   const template = await fetch(path);
+  document.body.appendChild(templateEl);
+};
 
-//   const templateEl = document.createElement('template');
+const pickerTemplatePath = chrome.runtime.getURL('templates/picker.html');
 
-//   templateEl.id = 'poc';
-//   templateEl.innerHTML = await template.text();
+// TODO handle loading failures
 
-//   document.body.appendChild(templateEl);
-// };
-
-
-// injectTemplate(chrome.runtime.getURL('templates/picker.html'));
-
-
-
-
-
-
+injectTemplate(pickerTemplatePath, pickerTemplateId);
