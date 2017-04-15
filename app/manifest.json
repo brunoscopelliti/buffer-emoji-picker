@@ -3,7 +3,7 @@
 
   "name": "Buffer Emoji Picker",
   "description": "Loads an emoji picker",
-  "version": "0.3",
+  "version": "0.4",
 
   "content_scripts": [
     {

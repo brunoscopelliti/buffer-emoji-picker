@@ -121,15 +121,23 @@ const createButton = (parentEl) => {
 
   button.addEventListener('click', () => {
     // TODO: that's mostly a POC
-    const input = parentEl.querySelector(__WEBPACK_IMPORTED_MODULE_1_selectors__["e" /* editorInputSelector */]);
-    input.value = input.value + ' 🚀';
-    input.dispatchEvent(new KeyboardEvent('keyup', { bubbles: true, cancelable: true }));
+    updateValue(parentEl.querySelector(__WEBPACK_IMPORTED_MODULE_1_selectors__["e" /* editorInputSelector */]), '🚀');
   });
 
   return button;
 };
 
 /* harmony default export */ __webpack_exports__["a"] = (createButton);
+
+
+const updateValue = (input, emoji) => {
+    input.value = format(input.value, input.selectionStart, emoji);
+    input.dispatchEvent(new Event('keyup', { bubbles: true, cancelable: true }));
+};
+
+const format = (str, insertAt, emoji) => 
+    str.substring(0, insertAt) + emoji + str.substring(insertAt);
+
 
 
 /***/ }),
