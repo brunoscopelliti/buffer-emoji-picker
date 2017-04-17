@@ -135,9 +135,14 @@ const createButton = (parentEl) => {
 /* harmony default export */ __webpack_exports__["a"] = (createButton);
 
 
+const focus = (input) => {
+  setTimeout(() => input.focus(), 100);
+};
+
 const updateValue = (input, emoji) => {
     input.value = format(input.value, input.selectionStart, emoji);
     input.dispatchEvent(new Event('keyup', { bubbles: true, cancelable: true }));
+    focus(input);
 };
 
 const format = (str, insertAt, emoji) => 
@@ -255,14 +260,7 @@ const editorObserver = new MutationObserver(mutations => {
   tryInjectButton(pivotEl);
 });
 
-
-// TODO should handle the case user does not land in the `Content` tab.
-// Useful reference: http://stackoverflow.com/questions/13806307/how-to-insert-content-script-in-google-chrome-extension-when-page-was-changed-vi
-const editor = document.querySelector(__WEBPACK_IMPORTED_MODULE_0_selectors__["c" /* writingAreaSelector */]);
-
-if (editor != null) {
-  editorObserver.observe(document.querySelector(__WEBPACK_IMPORTED_MODULE_0_selectors__["c" /* writingAreaSelector */]), { childList: true });
-}
+editorObserver.observe(document.querySelector(__WEBPACK_IMPORTED_MODULE_0_selectors__["c" /* writingAreaSelector */]) || document.body, { childList: true });
 
 
 

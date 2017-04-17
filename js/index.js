@@ -104,14 +104,7 @@ const editorObserver = new MutationObserver(mutations => {
   tryInjectButton(pivotEl);
 });
 
-
-// TODO should handle the case user does not land in the `Content` tab.
-// Useful reference: http://stackoverflow.com/questions/13806307/how-to-insert-content-script-in-google-chrome-extension-when-page-was-changed-vi
-const editor = document.querySelector(writingAreaSelector);
-
-if (editor != null) {
-  editorObserver.observe(document.querySelector(writingAreaSelector), { childList: true });
-}
+editorObserver.observe(document.querySelector(writingAreaSelector) || document.body, { childList: true });
 
 
 

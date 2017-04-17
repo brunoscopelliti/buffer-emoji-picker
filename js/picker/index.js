@@ -18,9 +18,14 @@ const createButton = (parentEl) => {
 export default createButton;
 
 
+const focus = (input) => {
+  setTimeout(() => input.focus(), 100);
+};
+
 const updateValue = (input, emoji) => {
     input.value = format(input.value, input.selectionStart, emoji);
     input.dispatchEvent(new Event('keyup', { bubbles: true, cancelable: true }));
+    focus(input);
 };
 
 const format = (str, insertAt, emoji) => 
