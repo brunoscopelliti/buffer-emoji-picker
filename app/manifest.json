@@ -3,11 +3,15 @@
 
   "name": "Buffer Emoji Picker",
   "description": "Loads an emoji picker",
-  "version": "0.5",
+  "version": "0.6",
+
+  "background": {
+    "scripts": ["background.js"]
+  },
 
   "content_scripts": [
     {
-      "matches": ["https://buffer.com/app/profile/*"],
+      "matches": ["https://buffer.com/app/profile/*", "https://buffer.com/app/profile/*/buffer/queue/list"],
       "js": ["emoji-picker.js"],
       "css": ["app.css"]
     }
@@ -16,6 +20,9 @@
   "web_accessible_resources": ["/templates/*.html"],
 
   "permissions": [
-    "activeTab"
+    "activeTab",
+    "https://buffer.com/",
+    "tabs",
+    "webNavigation"
   ]
 }
