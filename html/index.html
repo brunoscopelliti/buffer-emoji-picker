@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='UTF-8'>
+    <title>Emoji Picker</title>
+
+    <style>
+      body { font-family: "Open Sans",Helvetica,Arial,sans-serif; padding: 100px 20px; }
+
+      #emoji-picker {
+
+        border: 1px solid #CCC;
+        border-radius: 1px;
+
+        display: flex;
+        height: 320px;
+        width: 250px;
+      }
+
+      #emoji-picker a {
+        text-decoration: none;
+      }
+
+      .emoji-categories-list {
+
+        border-right: 1px solid #CCC;
+
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        height: 100%;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+      }
+
+      .emoji-categories-list li {
+        box-sizing: border-box;
+        font-size: 32px;
+        height: 40px;
+        line-height: 40px;
+
+        position: relative;
+
+        text-align: center;
+        width: 40px;
+      }
+
+      .emoji-category {
+        filter: grayscale(1);
+        opacity: .8;
+      }
+
+      .emoji-category:hover,
+      .emoji-category:focus,
+      .emoji-category.is-selected {
+        filter: none;
+        opacity: 1;
+      }
+
+      .emoji-category {
+        display: block;
+        height: 100%;
+        width: 100%;
+      }
+
+
+      .search-box {
+        box-sizing: border-box;
+        background: #f7f9fb;
+
+        padding: 12px 6px;
+        position: fixed;
+        width: 209px;
+      }
+      .input-wrapper {
+        position: relative;
+      }
+      .search-box input {
+        border: 1px solid #99CDE1;
+        border-radius: 2px;
+        box-sizing: border-box;
+
+        font-size: 14px;
+
+        height: 26px;
+
+
+        padding: 2px;
+        width: 100%;
+      }
+      .search-box button {
+        position: absolute;
+        top: 4px;
+        right: 4px;
+      }
+
+
+
+
+      .emoji-shelf {
+        overflow-y: scroll;
+        position: relative
+      }
+
+      .emoji-shelf-section {
+        box-sizing: border-box;
+        margin: 10px 0;
+        padding: 5px 0px;
+      }
+      .search-box + .emoji-shelf-section {
+        margin-top: 60px;
+      }
+
+      .emoji-shelf-title {
+        border-bottom: 1px solid #CCC;
+        font-size: 16px;
+        margin: 0 0 6px;
+        padding: 0 2px 4px;
+      }
+
+      #latest-emoji-shelf-section .emoji-shelf-title {
+        display: flex;
+        justify-content: space-between;
+      }
+
+      .contextual-btn {
+        background-color: transparent;
+        border: 0;
+        cursor: pointer;
+      }
+
+
+
+      .emojis {
+        line-height: 34px;
+        padding-left: 8px;
+      }
+
+      .emoji {
+        box-sizing: border-box;
+        display: inline-block;
+        font-size: 24px;
+        padding: 2px;
+        text-align: center;
+        width: 28px;
+      }
+      .emoji:hover {
+        outline: -webkit-focus-ring-color auto 5px;
+      }
+
+      
+
+    </style>
+
+  </head>
+  <body>
+<section id='emoji-picker'>
+  <div class='emoji-categories'>
+    <ul class='emoji-categories-list'>
+      <li>
+        <a class='emoji-category is-selected js-selectable-category' title='Latest used' href='#latest-emoji-shelf-section' data-js-section-key='latest'>⏰</a>
+      </li>
+      <li>
+        <a class='emoji-category js-selectable-category' title='Smile' href='#smileys-people-emoji-shelf-section' data-js-section-key='smileys-people'>😄</a>
+      </li>
+      <li>
+        <a class='emoji-category js-selectable-category' title='Frog' href='#animals-nature-emoji-shelf-section' data-js-section-key='animals-nature'>🐸</a>
+      </li>
+      <li>
+        <a class='emoji-category js-selectable-category' title='Fork and knife' href='#food-drink-emoji-shelf-section' data-js-section-key='food-drink'>🍴</a>
+      </li>
+      <li>
+        <a class='emoji-category js-selectable-category' title='Soccer ball' href='#sports-emoji-shelf-section' data-js-section-key='sports'>⚽️</a>
+      </li>
+      <li>
+        <a class='emoji-category js-selectable-category' title='Rocket' href='#travel-places-emoji-shelf-section' data-js-section-key='travel-places'>🚀</a>
+      </li>
+      <li>
+        <a class='emoji-category js-selectable-category' title='Bulb' href='#objects-emoji-shelf-section' data-js-section-key='objects'>💡</a>
+      </li>
+      <li>
+        <a class='emoji-category js-selectable-category' title='Heart' href='#symbols-emoji-shelf-section' data-js-section-key='symbols'>❤️</a>
+      </li>
+      <li>
+        <a class='emoji-category js-selectable-category' title='Moon' href='#extra-emoji-shelf-section' data-js-section-key='extra'>🌙</a>
+      </li>
+    </ul>
+  </div>
+  <div class='emoji-shelf js-scrollable'>
+    <div class='search-box'>
+      <div class='input-wrapper'>
+        <input type='text' id='js-search' name='emoji-filter' placeholder='Search for emoji' />
+        <button class='clear-input-btn js-clear-input-btn contextual-btn'>X</button>
+      </div>
+    </div>
+    <div id='latest-emoji-shelf-section' class='emoji-shelf-section js-scrollable-section' data-js-section='latest'>
+      <h2 class='emoji-shelf-title'>
+        <span>Latest used</span>
+        <button class='contextual-btn js-clear-history-btn'>Clear</button>
+      </h2>
+    </div>
+      <div id='smileys-people-emoji-shelf-section' class='emoji-shelf-section js-scrollable-section' data-js-section='smileys-people'>
+        <h2 class='emoji-shelf-title'>Smileys & people</h2>
+        <div class='emojis'>
+          <a class='emoji' href='#smiley-emoji' title='Smiley'>😃</a>
+          <a class='emoji' href='#smile-emoji' title='Smile'>😄</a>
+          <a class='emoji' href='#grinning-emoji' title='Grinning'>😀</a>
+          <a class='emoji' href='#smirk-emoji' title='Smirk'>😏</a>
+          <a class='emoji' href='#blush-emoji' title='Blush'>😊</a>
+          <a class='emoji' href='#sunglasses-emoji' title='Sunglasses'>😎</a>
+          <a class='emoji' href='#angry-emoji' title='Angry'>😠</a>
+          <a class='emoji' href='#sob-emoji' title='Sob'>😭</a>
+          <a class='emoji' href='#kissing-emoji' title='Kissing'>😚</a>
+          <a class='emoji' href='#confounded-emoji' title='Confounded'>😖</a>
+          <a class='emoji' href='#weary-emoji' title='Weary'>😩</a>
+          <a class='emoji' href='#sleeping-emoji' title='Sleeping'>😴</a>
+          <a class='emoji' href='#wink-emoji' title='Wink'>😉</a>
+          <a class='emoji' href='#tongue-emoji' title='Tongue'>😛</a>
+          <a class='emoji' href='#winking-tongue-emoji' title='Winking tongue'>😜</a>
+          <a class='emoji' href='#tongue-closed-eyes-emoji' title='Tongue closed eyes'>😝</a>
+          <a class='emoji' href='#neutral-face-emoji' title='Neutral face'>😐</a>
+          <a class='emoji' href='#heart-eyes-emoji' title='Heart eyes'>😍</a>
+          <a class='emoji' href='#anguished-emoji' title='Anguished'>😧</a>
+          <a class='emoji' href='#confused-emoji' title='Confused'>😕</a>
+          <a class='emoji' href='#cry-emoji' title='Cry'>😢</a>
+          <a class='emoji' href='#astonished-emoji' title='Astonished'>😲</a>
+          <a class='emoji' href='#relieved-emoji' title='Relieved'>😌</a>
+          <a class='emoji' href='#satisfied-emoji' title='Satisfied'>😆</a>
+          <a class='emoji' href='#innocent-emoji' title='Innocent'>😇</a>
+          <a class='emoji' href='#pensive-emoji' title='Pensive'>😔</a>
+          <a class='emoji' href='#persevere-emoji' title='Persevere'>😣</a>
+          <a class='emoji' href='#yum-emoji' title='Yum'>😋</a>
+          <a class='emoji' href='#worried-emoji' title='Worried'>😟</a>
+          <a class='emoji' href='#unamused-emoji' title='Unamused'>😒</a>
+          <a class='emoji' href='#fearful-emoji' title='Fearful'>😨</a>
+          <a class='emoji' href='#scream-emoji' title='Scream'>😱</a>
+          <a class='emoji' href='#baby-emoji' title='Baby'>👶</a>
+          <a class='emoji' href='#alien-emoji' title='Alien'>👽</a>
+          <a class='emoji' href='#angel-emoji' title='Angel'>👼</a>
+          <a class='emoji' href='#devil-face-emoji' title='Devil face'>😈</a>
+          <a class='emoji' href='#ghost-emoji' title='Ghost'>👻</a>
+          <a class='emoji' href='#santa-emoji' title='Santa'>🎅</a>
+          <a class='emoji' href='#snowman-emoji' title='Snowman'>⛄️</a>
+          <a class='emoji' href='#+1-emoji' title='+1'>👍</a>
+          <a class='emoji' href='#ok-hand-emoji' title='Ok hand'>👌</a>
+          <a class='emoji' href='#claps-emoji' title='Claps'>👏</a>
+          <a class='emoji' href='#thumbsdown-emoji' title='Thumbsdown'>👎</a>
+          <a class='emoji' href='#raised-hand-emoji' title='Raised hand'>✋</a>
+          <a class='emoji' href='#punch-emoji' title='Punch'>👊</a>
+          <a class='emoji' href='#see-no-evil-emoji' title='See no evil'>🙈</a>
+          <a class='emoji' href='#hear-no-evil-emoji' title='Hear no evil'>🙉</a>
+          <a class='emoji' href='#speak-no-evil-emoji' title='Speak no evil'>🙊</a>
+        </div>
+      </div>
+      <div id='animals-nature-emoji-shelf-section' class='emoji-shelf-section js-scrollable-section' data-js-section='animals-nature'>
+        <h2 class='emoji-shelf-title'>Animals & nature</h2>
+        <div class='emojis'>
+          <a class='emoji' href='#ant-emoji' title='Ant'>🐜</a>
+          <a class='emoji' href='#baby-chick-emoji' title='Baby chick'>🐤</a>
+          <a class='emoji' href='#bear-emoji' title='Bear'>🐻</a>
+          <a class='emoji' href='#bee-emoji' title='Bee'>🐝</a>
+          <a class='emoji' href='#cat-emoji' title='Cat'>🐱</a>
+          <a class='emoji' href='#dog-emoji' title='Dog'>🐶</a>
+          <a class='emoji' href='#frog-emoji' title='Frog'>🐸</a>
+          <a class='emoji' href='#koala-emoji' title='Koala'>🐨</a>
+          <a class='emoji' href='#panda-emoji' title='Panda'>🐼</a>
+          <a class='emoji' href='#penguin-emoji' title='Penguin'>🐧</a>
+          <a class='emoji' href='#rabbit-emoji' title='Rabbit'>🐰</a>
+          <a class='emoji' href='#tiger-emoji' title='Tiger'>🐯</a>
+          <a class='emoji' href='#turtle-emoji' title='Turtle'>🐢</a>
+          <a class='emoji' href='#wolf-emoji' title='Wolf'>🐺</a>
+          <a class='emoji' href='#smiley-cat-emoji' title='Smiley cat'>😺</a>
+          <a class='emoji' href='#smirk-cat-emoji' title='Smirk cat'>😼</a>
+          <a class='emoji' href='#crying-cat-emoji' title='Crying cat'>😿</a>
+        </div>
+      </div>
+      <div id='food-drink-emoji-shelf-section' class='emoji-shelf-section js-scrollable-section' data-js-section='food-drink'>
+        <h2 class='emoji-shelf-title'>Food & drink</h2>
+        <div class='emojis'>
+          <a class='emoji' href='#apple-emoji' title='Apple'>🍎</a>
+          <a class='emoji' href='#banana-emoji' title='Banana'>🍌</a>
+          <a class='emoji' href='#cherries-emoji' title='Cherries'>🍒</a>
+          <a class='emoji' href='#grapes-emoji' title='Grapes'>🍇</a>
+          <a class='emoji' href='#green-apple-emoji' title='Green apple'>🍏</a>
+          <a class='emoji' href='#melon-emoji' title='Melon'>🍈</a>
+          <a class='emoji' href='#peach-emoji' title='Peach'>🍑</a>
+          <a class='emoji' href='#pear-emoji' title='Pear'>🍐</a>
+          <a class='emoji' href='#pineapple-emoji' title='Pineapple'>🍍</a>
+          <a class='emoji' href='#strawberry-emoji' title='Strawberry'>🍓</a>
+          <a class='emoji' href='#tangerine-emoji' title='Tangerine'>🍊</a>
+          <a class='emoji' href='#watermelon-emoji' title='Watermelon'>🍉</a>
+          <a class='emoji' href='#pizza-emoji' title='Pizza'>🍕</a>
+          <a class='emoji' href='#hamburger-emoji' title='Hamburger'>🍔</a>
+          <a class='emoji' href='#chips-emoji' title='Chips'>🍟</a>
+          <a class='emoji' href='#bread-emoji' title='Bread'>🍞</a>
+          <a class='emoji' href='#fork-and-knife-emoji' title='Fork and knife'>🍴</a>
+          <a class='emoji' href='#spaghetti-emoji' title='Spaghetti'>🍝</a>
+          <a class='emoji' href='#sushi-emoji' title='Sushi'>🍣</a>
+          <a class='emoji' href='#rice-emoji' title='Rice'>🍚</a>
+          <a class='emoji' href='#rice-ball-emoji' title='Rice ball'>🍙</a>
+          <a class='emoji' href='#doughnut-emoji' title='Doughnut'>🍩</a>
+          <a class='emoji' href='#cookie-emoji' title='Cookie'>🍪</a>
+          <a class='emoji' href='#birthday-emoji' title='Birthday'>🎂</a>
+          <a class='emoji' href='#cake-emoji' title='Cake'>🍰</a>
+          <a class='emoji' href='#icecream-emoji' title='Icecream'>🍨</a>
+          <a class='emoji' href='#candy-emoji' title='Candy'>🍬</a>
+          <a class='emoji' href='#beer-emoji' title='Beer'>🍺</a>
+          <a class='emoji' href='#beers-emoji' title='Beers'>🍻</a>
+          <a class='emoji' href='#coffee-emoji' title='Coffee'>☕️</a>
+          <a class='emoji' href='#cocktail-emoji' title='Cocktail'>🍸</a>
+        </div>
+      </div>
+      <div id='sports-emoji-shelf-section' class='emoji-shelf-section js-scrollable-section' data-js-section='sports'>
+        <h2 class='emoji-shelf-title'>Sports</h2>
+        <div class='emojis'>
+          <a class='emoji' href='#baseball-emoji' title='Baseball'>⚾️</a>
+          <a class='emoji' href='#basket-ball-emoji' title='Basket ball'>🏀</a>
+          <a class='emoji' href='#rugby-emoji' title='Rugby'>🏈</a>
+          <a class='emoji' href='#soccer-ball-emoji' title='Soccer ball'>⚽️</a>
+          <a class='emoji' href='#tennis-emoji' title='Tennis'>🎾</a>
+          <a class='emoji' href='#bowling-emoji' title='Bowling'>🎳</a>
+          <a class='emoji' href='#dart-emoji' title='Dart'>🎯</a>
+          <a class='emoji' href='#8balls-emoji' title='8balls'>🎱</a>
+          <a class='emoji' href='#bike-emoji' title='Bike'>🚴</a>
+          <a class='emoji' href='#rowboat-emoji' title='Rowboat'>🚣</a>
+          <a class='emoji' href='#showboarder-emoji' title='Showboarder'>🏂</a>
+          <a class='emoji' href='#surfing-emoji' title='Surfing'>🏄</a>
+        </div>
+      </div>
+      <div id='travel-places-emoji-shelf-section' class='emoji-shelf-section js-scrollable-section' data-js-section='travel-places'>
+        <h2 class='emoji-shelf-title'>Travel & places</h2>
+        <div class='emojis'>
+          <a class='emoji' href='#airplane-emoji' title='Airplane'>✈️</a>
+          <a class='emoji' href='#rocket-emoji' title='Rocket'>🚀</a>
+          <a class='emoji' href='#bus-emoji' title='Bus'>🚌</a>
+          <a class='emoji' href='#minibus-emoji' title='Minibus'>🚐</a>
+          <a class='emoji' href='#articulated-lorry-emoji' title='Articulated lorry'>🚛</a>
+          <a class='emoji' href='#ambulance-emoji' title='Ambulance'>🚑</a>
+          <a class='emoji' href='#car-emoji' title='Car'>🚗</a>
+          <a class='emoji' href='#boat-emoji' title='Boat'>⛵️</a>
+          <a class='emoji' href='#sunrise-emoji' title='Sunrise'>🌅</a>
+          <a class='emoji' href='#mountains-emoji' title='Mountains'>🌄</a>
+        </div>
+      </div>
+      <div id='objects-emoji-shelf-section' class='emoji-shelf-section js-scrollable-section' data-js-section='objects'>
+        <h2 class='emoji-shelf-title'>Objects</h2>
+        <div class='emojis'>
+          <a class='emoji' href='#art-emoji' title='Art'>🎨</a>
+          <a class='emoji' href='#alarm-clock-emoji' title='Alarm clock'>⏰</a>
+          <a class='emoji' href='#christmas-tree-emoji' title='Christmas tree'>🎄</a>
+          <a class='emoji' href='#camera-emoji' title='Camera'>📷</a>
+          <a class='emoji' href='#eye-glass-emoji' title='Eye glass'>👓</a>
+          <a class='emoji' href='#shell-emoji' title='Shell'>🐚</a>
+          <a class='emoji' href='#bulb-emoji' title='Bulb'>💡</a>
+          <a class='emoji' href='#flashlight-emoji' title='Flashlight'>🔦</a>
+          <a class='emoji' href='#bell-emoji' title='Bell'>🔔</a>
+          <a class='emoji' href='#crystal-ball-emoji' title='Crystal ball'>🔮</a>
+          <a class='emoji' href='#pill-emoji' title='Pill'>💊</a>
+          <a class='emoji' href='#dice-emoji' title='Dice'>🎲</a>
+          <a class='emoji' href='#hocho-emoji' title='Hocho'>🔪</a>
+          <a class='emoji' href='#gift-emoji' title='Gift'>🎁</a>
+          <a class='emoji' href='#balloon-emoji' title='Balloon'>🎈</a>
+          <a class='emoji' href='#wine-glass-emoji' title='Wine glass'>🍷</a>
+          <a class='emoji' href='#dress-emoji' title='Dress'>👗</a>
+          <a class='emoji' href='#boot-emoji' title='Boot'>👢</a>
+          <a class='emoji' href='#high-heel-emoji' title='High heel'>👠</a>
+          <a class='emoji' href='#shoe-emoji' title='Shoe'>👞</a>
+          <a class='emoji' href='#athletic-shoe-emoji' title='Athletic shoe'>👟</a>
+          <a class='emoji' href='#jeans-emoji' title='Jeans'>👖</a>
+          <a class='emoji' href='#woman-clothes-emoji' title='Woman clothes'>👚</a>
+          <a class='emoji' href='#bikini-emoji' title='Bikini'>👙</a>
+          <a class='emoji' href='#tshirt-emoji' title='Tshirt'>👕</a>
+          <a class='emoji' href='#telephone-emoji' title='Telephone'>☎️</a>
+          <a class='emoji' href='#computer-emoji' title='Computer'>💻</a>
+          <a class='emoji' href='#wrench-emoji' title='Wrench'>🔧</a>
+          <a class='emoji' href='#hammer-emoji' title='Hammer'>🔨</a>
+          <a class='emoji' href='#baby-bottle-emoji' title='Baby bottle'>🍼</a>
+          <a class='emoji' href='#scissors-emoji' title='Scissors'>✂️</a>
+          <a class='emoji' href='#book-emoji' title='Book'>📙</a>
+          <a class='emoji' href='#open-book-emoji' title='Open book'>📖</a>
+          <a class='emoji' href='#checkered-flag-emoji' title='Checkered flag'>🏁</a>
+          <a class='emoji' href='#clapper-emoji' title='Clapper'>🎬</a>
+          <a class='emoji' href='#trophy-emoji' title='Trophy'>🏆</a>
+          <a class='emoji' href='#ring-emoji' title='Ring'>💍</a>
+          <a class='emoji' href='#crown-emoji' title='Crown'>👑</a>
+          <a class='emoji' href='#diamond-emoji' title='Diamond'>💎</a>
+          <a class='emoji' href='#tulip-emoji' title='Tulip'>🌷</a>
+          <a class='emoji' href='#bouquet-emoji' title='Bouquet'>💐</a>
+          <a class='emoji' href='#poop-emoji' title='Poop'>💩</a>
+          <a class='emoji' href='#satellite-antenna-emoji' title='Satellite antenna'>📡</a>
+          <a class='emoji' href='#floppy-emoji' title='Floppy'>💾</a>
+          <a class='emoji' href='#headphone-emoji' title='Headphone'>🎧</a>
+          <a class='emoji' href='#bomb-emoji' title='Bomb'>💣</a>
+          <a class='emoji' href='#videogame-emoji' title='Videogame'>🎮</a>
+          <a class='emoji' href='#trumpet-emoji' title='Trumpet'>🎺</a>
+          <a class='emoji' href='#saxophone-emoji' title='Saxophone'>🎷</a>
+          <a class='emoji' href='#violin-emoji' title='Violin'>🎻</a>
+          <a class='emoji' href='#guitar-emoji' title='Guitar'>🎸</a>
+          <a class='emoji' href='#wc-emoji' title='Wc'>🚾</a>
+          <a class='emoji' href='#lipstick-emoji' title='Lipstick'>💄</a>
+          <a class='emoji' href='#lollipop-emoji' title='Lollipop'>🍭</a>
+          <a class='emoji' href='#gun-emoji' title='Gun'>🔫</a>
+        </div>
+      </div>
+      <div id='symbols-emoji-shelf-section' class='emoji-shelf-section js-scrollable-section' data-js-section='symbols'>
+        <h2 class='emoji-shelf-title'>Symbols</h2>
+        <div class='emojis'>
+          <a class='emoji' href='#heart-emoji' title='Heart'>❤️</a>
+          <a class='emoji' href='#heartpulse-emoji' title='Heartpulse'>💗</a>
+          <a class='emoji' href='#sparkling-heart-emoji' title='Sparkling heart'>💖</a>
+          <a class='emoji' href='#cupid-emoji' title='Cupid'>💘</a>
+          <a class='emoji' href='#two-hearts-emoji' title='Two hearts'>💕</a>
+          <a class='emoji' href='#kiss-emoji' title='Kiss'>💋</a>
+          <a class='emoji' href='#yellow-heart-emoji' title='Yellow heart'>💛</a>
+          <a class='emoji' href='#purple-heart-emoji' title='Purple heart'>💜</a>
+          <a class='emoji' href='#green-heart-emoji' title='Green heart'>💚</a>
+          <a class='emoji' href='#blue-heart-emoji' title='Blue heart'>💙</a>
+          <a class='emoji' href='#broken-heart-emoji' title='Broken heart'>💔</a>
+          <a class='emoji' href='#sparkles-emoji' title='Sparkles'>✨</a>
+          <a class='emoji' href='#tada-emoji' title='Tada'>🎉</a>
+          <a class='emoji' href='#confetti-ball-emoji' title='Confetti ball'>🎊</a>
+          <a class='emoji' href='#question-emoji' title='Question'>❔</a>
+          <a class='emoji' href='#exclamation-emoji' title='Exclamation'>❕</a>
+          <a class='emoji' href='#checked-emoji' title='Checked'>✅</a>
+          <a class='emoji' href='#zap-emoji' title='Zap'>⚡️</a>
+          <a class='emoji' href='#musical-note-emoji' title='Musical note'>🎵</a>
+          <a class='emoji' href='#money-bag-emoji' title='Money bag'>💰</a>
+          <a class='emoji' href='#blossom-emoji' title='Blossom'>🌼</a>
+          <a class='emoji' href='#four-leaf-clover-emoji' title='Four leaf clover'>🍀</a>
+          <a class='emoji' href='#maple-leaf-emoji' title='Maple leaf'>🍁</a>
+          <a class='emoji' href='#snowflake-emoji' title='Snowflake'>❄️</a>
+          <a class='emoji' href='#ribbon-emoji' title='Ribbon'>🎀</a>
+          <a class='emoji' href='#zzz-emoji' title='Zzz'>💤</a>
+          <a class='emoji' href='#fire-emoji' title='Fire'>🔥</a>
+          <a class='emoji' href='#droplet-emoji' title='Droplet'>💧</a>
+          <a class='emoji' href='#clubs-emoji' title='Clubs'>♣️</a>
+          <a class='emoji' href='#spades-emoji' title='Spades'>♠️</a>
+          <a class='emoji' href='#diamonds-emoji' title='Diamonds'>♦️</a>
+          <a class='emoji' href='#hearts-emoji' title='Hearts'>♥️</a>
+        </div>
+      </div>
+      <div id='extra-emoji-shelf-section' class='emoji-shelf-section js-scrollable-section' data-js-section='extra'>
+        <h2 class='emoji-shelf-title'>Extra</h2>
+        <div class='emojis'>
+          <a class='emoji' href='#star-emoji' title='Star'>🌟</a>
+          <a class='emoji' href='#sun-emoji' title='Sun'>☀️</a>
+          <a class='emoji' href='#moon-emoji' title='Moon'>🌙</a>
+          <a class='emoji' href='#moon2-emoji' title='Moon2'>🌕</a>
+          <a class='emoji' href='#cactus-emoji' title='Cactus'>🌵</a>
+        </div>
+      </div>
+  </div>
+</section>
+
+
+    <script type='text/javascript'>
+
+      function delegate(selector, fn) {
+        return function(event) {
+          const matchingEl = matches(event.target, selector, this);
+          if(matchingEl != null){
+            fn.call(matchingEl, event);
+          }
+        };
+      };
+
+      const matches = (target, selector, boundElement) => {
+        if (target === boundElement){
+          return null;
+        }
+        if (target.matches(selector)){
+          return target;
+        }
+        if (target.parentNode){
+          return matches(target.parentNode, selector, boundElement);
+        }
+        return null;
+      };
+
+      const listen = (target, eventName, fn, options = {}) => {
+        const cancelListener = () => {
+          target.removeEventListener(eventName, handler);
+        };
+
+        const handler = options.one ? one(fn, cancelListener) : fn;
+
+        target.addEventListener(eventName, handler);
+
+        return cancelListener;
+      };
+
+      function one(fn, cancel) {
+        return function(...args) {
+          cancel();
+          fn.apply(this, args);
+        }
+      };
+
+
+      // Scroll stuff
+
+
+      let removeScrollListener;
+      
+      const listenScroll = () => {
+        const scrollableEl = document.getElementsByClassName('js-scrollable')[0];
+        removeScrollListener = listen(scrollableEl, 'scroll', onScroll);
+      };
+
+      listenScroll();
+
+
+      function onScroll(event) {
+        const scrollLevel = event.currentTarget.scrollTop;
+
+        const shelfElems = [].slice.call(document.getElementsByClassName('js-scrollable-section'));
+
+        const selectedShelf = shelfElems.reduce((selectedEl, shelfEl) => scrollLevel + 25 + 60 > shelfEl.offsetTop ? shelfEl : selectedEl, shelfElems[0]);
+        const selectedShelfKey = selectedShelf.dataset['jsSection'];
+
+
+        markSelected(selectedShelfKey);
+      }
+
+      const markSelected = (key) => {
+        const currentlySelectedCategoryEl = document.querySelector('.js-selectable-category.is-selected');
+        const selectedCategoryEl = document.querySelector(`[data-js-section-key="${key}"]`);
+
+        if (currentlySelectedCategoryEl != selectedCategoryEl){
+          toggleClass([currentlySelectedCategoryEl, selectedCategoryEl], 'is-selected');
+          selectedCategoryEl.focus();
+        }
+      };
+
+      const toggleClass = (elems, className, force) => 
+        (Array.isArray(elems) ? elems : [elems])
+          .forEach(el => el.classList.toggle(className, force));
+
+      
+      // Click on category trigger scroll
+      const picker = document.getElementById('emoji-picker');
+
+      listen(picker, 'click', delegate('.js-selectable-category', scrollTo));
+
+      const defer = (func) => setTimeout(func, 0);
+
+      function scrollTo(event) {
+        const url = new URL(event.target.href);
+        const categoryKey = url.hash.substr(1);
+
+        const categoryShelfEl = document.getElementById(categoryKey);
+
+        if (categoryShelfEl){
+          removeScrollListener();
+          // TODO Chrome does not support scrollOption parameter. Add smooth scroll effect.
+          categoryShelfEl.scrollIntoView();
+          setTimeout(listenScroll, 100);
+        }
+
+        markSelected(event.target.dataset['jsSectionKey']);
+        event.preventDefault();
+      }
+
+      // 
+
+    </script>
+
+
+  </body>
+</html>
+
+
+
