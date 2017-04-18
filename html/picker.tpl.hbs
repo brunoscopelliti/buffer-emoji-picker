@@ -1,0 +1,38 @@
+<section id='emoji-picker'>
+  <div class='emoji-categories'>
+    <ul class='emoji-categories-list'>
+      <li>
+        <a class='emoji-category is-selected js-selectable-category' title='Latest used' href='#latest-emoji-shelf-section' data-js-section-key='latest'>⏰</a>
+      </li>
+    {{#each emoji}}
+      <li>
+        <a class='emoji-category js-selectable-category' title='{{featuredName this}}' href='#{{tokenize @key}}-emoji-shelf-section' data-js-section-key='{{tokenize @key}}'>{{featured this}}</a>
+      </li>
+    {{/each}}
+    </ul>
+  </div>
+  <div class='emoji-shelf js-scrollable'>
+    <div class='search-box'>
+      <div class='input-wrapper'>
+        <input type='text' id='js-search' name='emoji-filter' placeholder='Search for emoji' />
+        <button class='clear-input-btn js-clear-input-btn contextual-btn'>X</button>
+      </div>
+    </div>
+    <div id='latest-emoji-shelf-section' class='emoji-shelf-section js-scrollable-section' data-js-section='latest'>
+      <h2 class='emoji-shelf-title'>
+        <span>Latest used</span>
+        <button class='contextual-btn js-clear-history-btn'>Clear</button>
+      </h2>
+    </div>
+    {{#each emoji}}
+      <div id='{{tokenize @key}}-emoji-shelf-section' class='emoji-shelf-section js-scrollable-section' data-js-section='{{tokenize @key}}'>
+        <h2 class='emoji-shelf-title'>{{{capitalize @key}}}</h2>
+        <div class='emojis'>
+        {{#each this}}
+          <a class='emoji' href='#{{tokenize name}}-emoji' title='{{capitalize name}}'>{{emoji}}</a>
+        {{/each}}
+        </div>
+      </div>
+    {{/each}}
+  </div>
+</section>
