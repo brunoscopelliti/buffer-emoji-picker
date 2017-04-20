@@ -2,12 +2,16 @@
 #sharer {
   .chrome-ext-emoji-picker-button{
     border: 0;
-
     cursor: pointer;
-
+    filter: grayscale(1);
     font-size: 22px;
     float: left !important;
     padding: 12px 10px 10px 0;
+
+    &:hover,
+    &:focus {
+      filter: grayscale(0);
+    }
   }
 }
 
