@@ -1,12 +1,11 @@
 
 import {
   writingAreaSelector,
-  genericWritingAreaSelector,
   uploaderButtonSelector,
   dialogLayerClassName
 } from 'selectors';
 
-import createButton from 'picker';
+import createButton from 'picker/button';
 import injectTemplate from 'inject-template';
 
 import { pickerButtonSelector, pickerTemplateId } from 'picker/selectors';
@@ -37,8 +36,7 @@ const tryInjectButton = (pivotEl) => {
     return;
   }
 
-  const editorContainerEl = parentEditor(directAncestorEl);
-  const buttonEl = createButton(editorContainerEl);
+  const buttonEl = createButton();
   pivotEl.before(buttonEl);
 };
 
@@ -58,40 +56,10 @@ const tryInjectButton = (pivotEl) => {
  * in editing mode.
  * So I cannot safely rely on document.getElementById().
  * 
- * ... so should always determine which is the context in which user
- * is using the picker.
+ * That's just to explain the diffuse usage of method such as
+ * document.querySelector, or Element#closest, that might otherwise
+ * seems strange.
  */
-
-
-/**
- * Returns the first parent of the given `element` that
- * does match the query `selector`.
- * @name parent
- * @param {String} selector
- * @param {HTMLElement} element
- * 
- * @return {HTMLElement|null}
- */
-const parent = (selector, element) => {
-  if (element == null){
-    return null;
-  }
-  if (element.matches(selector)){
-    return element;
-  }
-  return parent(selector, element.parentElement);
-}
-
-/**
- * Returns the editing area element that contains the given
- * `element`.
- * @name parent
- * @param {HTMLElement} element
- * 
- * @return {HTMLElement|null}
- */
-const parentEditor = parent.bind(null, genericWritingAreaSelector);
-
 
 
 

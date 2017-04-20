@@ -1,0 +1,154 @@
+
+.chrome-ext-emoji-picker {
+  background-color: #fff;
+  border: 1px solid #CCC;
+  border-radius: 1px;
+  box-sizing: border-box;
+  display: flex;
+  height: 320px;
+  width: 250px;
+
+  position: absolute;
+  z-index: 99;
+
+
+
+/* Draft... */
+
+a {
+    text-decoration: none;
+}
+
+.emoji-categories-list {
+
+    border-right: 1px solid #CCC;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.emoji-categories-list li {
+    box-sizing: border-box;
+    font-size: 32px;
+    height: 40px;
+    line-height: 40px;
+
+    position: relative;
+
+    text-align: center;
+    width: 40px;
+}
+
+.emoji-category {
+    filter: grayscale(1);
+    opacity: .8;
+}
+
+.emoji-category:hover,
+.emoji-category:focus,
+.emoji-category.is-selected {
+    filter: none;
+    opacity: 1;
+}
+
+.emoji-category {
+    display: block;
+    height: 100%;
+    width: 100%;
+}
+
+
+.search-box {
+    box-sizing: border-box;
+    background: #f7f9fb;
+
+    padding: 12px 6px;
+}
+.input-wrapper {
+    position: relative;
+}
+.search-box input {
+    border: 1px solid #99CDE1;
+    border-radius: 2px;
+    box-sizing: border-box;
+
+    font-size: 14px;
+
+    height: 26px;
+
+
+    padding: 2px;
+    width: 100%;
+}
+.search-box button {
+    height: 24px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    top: 1px;
+    right: 2px;
+}
+
+
+
+.emoji-shelf {
+    overflow-y: scroll;
+    position: relative;
+    width: 100%;
+}
+
+.emoji-shelf-section {
+    box-sizing: border-box;
+    margin: 10px 0;
+    padding: 5px 0px;
+}
+.search-box + .emoji-shelf-section {
+    /*margin-top: 60px;*/
+}
+
+.emoji-shelf-title {
+    border-bottom: 1px solid #CCC;
+    font-size: 16px;
+    margin: 0 0 6px;
+    padding: 0 2px 4px;
+}
+
+#latest-emoji-shelf-section .emoji-shelf-title {
+    display: flex;
+    justify-content: space-between;
+}
+
+.contextual-btn {
+    background-color: transparent;
+    border: 0;
+    cursor: pointer;
+}
+
+
+
+.emojis {
+    line-height: 34px;
+    padding-left: 8px;
+}
+
+.emoji {
+    box-sizing: border-box;
+    display: inline-block;
+    font-size: 24px;
+    padding: 2px;
+    text-align: center;
+    width: 28px;
+}
+.emoji:hover {
+    outline: -webkit-focus-ring-color auto 5px;
+}
+.is-hidden {
+    display: none !important;
+}
+
+}

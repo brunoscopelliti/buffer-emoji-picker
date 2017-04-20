@@ -1,25 +1,38 @@
 
-import { pickerButtonClassName } from './selectors';
-import { editorInputSelector } from 'selectors';
+import delegate from 'delegate-handler';
 
-const createButton = (parentEl) => {
-  const button = document.createElement('button');
-  button.className = pickerButtonClassName;
-  button.textContent = '😃';
+import listen from 'listen-events';
 
-  button.addEventListener('click', () => {
-    // TODO: that's mostly a POC
-    updateValue(parentEl.querySelector(editorInputSelector), '🚀');
-  });
+import {
+  genericWritingAreaSelector,
+  editorInputSelector
+} from 'selectors';
 
-  return button;
+
+
+
+
+const setupEmojiPicker = (root, button) => {
+
+  // That's mostly an advanced POC
+
+  listen('click', root, delegate(applyEmoji, '.js-clickable-emoji'));
+
+
+  button.before(root);
+
 };
 
-export default createButton;
+export default setupEmojiPicker;
 
 
-const focus = (input) => {
-  setTimeout(() => input.focus(), 100);
+
+
+const applyEmoji = (event) => {
+  const box = event.currentTarget.closest(genericWritingAreaSelector);
+  const textarea = box.querySelector(editorInputSelector);
+  const emoji = event.target.textContent.trim();
+  updateValue(textarea, emoji)
 };
 
 const updateValue = (input, emoji) => {
@@ -28,6 +41,8 @@ const updateValue = (input, emoji) => {
     focus(input);
 };
 
-const format = (str, insertAt, emoji) => 
+const format = (str, insertAt, emoji) =>
     str.substring(0, insertAt) + emoji + str.substring(insertAt);
 
+const focus = (input) =>
+  setTimeout(() => input.focus(), 100);
