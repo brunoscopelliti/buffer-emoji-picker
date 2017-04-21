@@ -298,9 +298,10 @@ __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2_inject_template__["a" /* defau
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_delegate_handler__ = __webpack_require__(6);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_listen_events__ = __webpack_require__(7);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_delegate_handler__ = __webpack_require__(7);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_listen_events__ = __webpack_require__(8);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_selectors__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_picker_query_box__ = __webpack_require__(6);
 
 
 
@@ -312,11 +313,30 @@ __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2_inject_template__["a" /* defau
 
 
 
+const listenClicks = __WEBPACK_IMPORTED_MODULE_1_listen_events__["a" /* default */].bind(null, 'click');
+
+/**
+ * @name setupEmojiPicker
+ * @param {HTMLElement} root 
+ * @param {HTMLElement} button 
+ */
 const setupEmojiPicker = (root, button) => {
+
+
+
+
 
   // That's mostly an advanced POC
 
-  __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1_listen_events__["a" /* default */])('click', root, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_delegate_handler__["a" /* default */])(applyEmoji, '.js-clickable-emoji'));
+  listenClicks(root, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_delegate_handler__["a" /* default */])(applyEmoji, '.js-clickable-emoji'));
+
+
+
+  __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1_listen_events__["a" /* default */])('keyup', root, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_delegate_handler__["a" /* default */])(__WEBPACK_IMPORTED_MODULE_3_picker_query_box__["a" /* onQueryChange */], 'input[name="emoji-filter"]'));
+
+  listenClicks(root, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_delegate_handler__["a" /* default */])(__WEBPACK_IMPORTED_MODULE_3_picker_query_box__["b" /* resetQueryField */], '.js-clear-input-btn'));
+
+
 
 
   button.before(root);
@@ -350,6 +370,93 @@ const focus = (input) =>
 
 /***/ }),
 /* 6 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return onQueryChange; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return resetQueryField; });
+
+/**
+ * Toggle visibility emojis on the base of the
+ * user search keyword
+ * @name filterEmojis
+ * @private
+ * @param {HTMLElement} root 
+ * @param {String} query 
+ */
+const filterEmojis = (root, query) => {
+  const rx = new RegExp(query, 'gi');
+  [...root.querySelectorAll('.js-filterable-emoji')]
+    .forEach((emoji) => emoji.classList.toggle('is-hidden', !rx.test(emoji.title)));
+};
+
+/**
+ * Toggle visibility on the button that permits to
+ * reset the query input field.
+ * It should not be visible when the input is empty.
+ * @name toggleResetFilterButton
+ * @private
+ * @param {Boolean} isActive 
+ * @param {HTMLElement} root 
+ */
+const toggleResetFilterButton = (isActive, root) => {
+  const button = root.querySelector('.js-clear-input-btn');
+  button.classList.toggle('is-hidden', !isActive);
+  button.setAttribute('aria-hidden', isActive);
+};
+
+
+/**
+ * It's the handler invoked when the user enter a keyword
+ * in the query input field.
+ * It updates the view accordingly to the query.
+ * @name onQueryChange
+ * @param {Event} event 
+ */
+const onQueryChange = (event) => {
+  const root = event.currentTarget;
+  const query = event.target.value;
+  filterEmojis(root, query);
+  toggleResetFilterButton(query.length > 0, root);
+};
+
+
+
+
+
+
+/**
+ * Hide the button that permits to reset the query input field.
+ * It should not be visible when the input is empty.
+ * @name toggleResetFilterButton
+ * @private
+ * @param {HTMLElement} root 
+ */
+const hideResetFilterButton = toggleResetFilterButton.bind(null, false);
+
+
+/**
+ * Reset the query input field, and updates the view
+ * accordingly.
+ * @name resetQueryField
+ * @param {Event} event 
+ */
+const resetQueryField = (event) => {
+  const root = event.currentTarget;
+  const searchInput = root.querySelector('input[name="emoji-filter"]');
+
+  searchInput.value = '';
+
+  hideResetFilterButton(root);
+  [...root.querySelectorAll('.js-filterable-emoji')]
+    .forEach((emoji) => emoji.classList.remove('is-hidden'));
+};
+
+
+
+
+/***/ }),
+/* 7 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -394,7 +501,7 @@ const matches = (target, selector, boundElement) => {
 
 
 /***/ }),
-/* 7 */
+/* 8 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";

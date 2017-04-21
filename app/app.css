@@ -15,13 +15,39 @@
   background-color: #fff;
   border: 1px solid #CCC;
   border-radius: 1px;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
   box-sizing: border-box;
   display: flex;
-  height: 320px;
-  width: 250px;
+  height: 335px;
+  width: 260px;
+  font-family: 'Open Sans', Helvetica, Arial, sans-serif;
   position: absolute;
   z-index: 99;
   /* Draft... */ }
+  .chrome-ext-emoji-picker button.contextual-btn {
+    background: transparent;
+    border: 0;
+    cursor: pointer;
+    margin: 0;
+    padding: 0; }
+  .chrome-ext-emoji-picker .search-box {
+    box-sizing: border-box;
+    background: #f7f9fb;
+    padding: 12px 6px; }
+  .chrome-ext-emoji-picker .input-wrapper {
+    position: relative; }
+  .chrome-ext-emoji-picker .search-box input#emoji-filter {
+    border: 1px solid #99CDE1;
+    border-radius: 2px;
+    box-sizing: border-box;
+    font-size: 14px;
+    height: 26px !important;
+    padding: 2px !important;
+    width: 100%; }
+  .chrome-ext-emoji-picker .search-box button.clear-input-btn {
+    position: absolute;
+    top: 2px;
+    right: 0; }
   .chrome-ext-emoji-picker a {
     text-decoration: none; }
   .chrome-ext-emoji-picker .emoji-categories-list {
@@ -53,31 +79,13 @@
     display: block;
     height: 100%;
     width: 100%; }
-  .chrome-ext-emoji-picker .search-box {
-    box-sizing: border-box;
-    background: #f7f9fb;
-    padding: 12px 6px; }
-  .chrome-ext-emoji-picker .input-wrapper {
-    position: relative; }
-  .chrome-ext-emoji-picker .search-box input {
-    border: 1px solid #99CDE1;
-    border-radius: 2px;
-    box-sizing: border-box;
-    font-size: 14px;
-    height: 26px;
-    padding: 2px;
-    width: 100%; }
-  .chrome-ext-emoji-picker .search-box button {
-    height: 24px;
-    overflow: hidden;
-    padding: 0;
-    position: absolute;
-    top: 1px;
-    right: 2px; }
+  .chrome-ext-emoji-picker .emoji-box {
+    display: flex;
+    flex-direction: column;
+    width: 217px; }
   .chrome-ext-emoji-picker .emoji-shelf {
     overflow-y: scroll;
-    position: relative;
-    width: 100%; }
+    position: relative; }
   .chrome-ext-emoji-picker .emoji-shelf-section {
     box-sizing: border-box;
     margin: 10px 0;
@@ -92,10 +100,6 @@
   .chrome-ext-emoji-picker #latest-emoji-shelf-section .emoji-shelf-title {
     display: flex;
     justify-content: space-between; }
-  .chrome-ext-emoji-picker .contextual-btn {
-    background-color: transparent;
-    border: 0;
-    cursor: pointer; }
   .chrome-ext-emoji-picker .emojis {
     line-height: 34px;
     padding-left: 8px; }

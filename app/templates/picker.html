@@ -27,16 +27,16 @@
       </li>
     </ul>
   </div>
-  <div class='emoji-shelf js-scrollable'>
+  <div class='emoji-box'>
     <div class='search-box'>
       <div class='input-wrapper'>
-        <input type='text' name='emoji-filter' placeholder='Search for emoji' />
+        <input type='text' id='emoji-filter' name='emoji-filter' placeholder='Search for emoji' />
         <button class='clear-input-btn js-clear-input-btn contextual-btn is-hidden' aria-hidden='true'>
           <img title='Clear search' src='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAA8ElEQVRIS+2TvQ4BURCFvw0PoRDPoPLTq9BI1BIFj0Sh8AqCROENUOl14jXIJPcma7P3ztxio7HtTs4355w7GRV/WcX6/AFqwj+NqA20gL2y5gR4APeyuZiDDnAElsAuAJkCK2AI3FIBMt8FDgGIKi4Clg4EIk4WOScmcSvAO/GQuotlBFy1Z2Rx4DXEyRl4AwOLeIoDmZVYNo42jxT/ZcrqwGcusdRc8flOgklZACK+BkT84pR6VogGKBP32/bdEUadxABjYFvYvBiFh8yAU+qhNYFG6EJzYnLxT+CVCtCeuOm/1oFJJDb0B6gRVh7RBzjeKRmVCdcIAAAAAElFTkSuQmCC'/>
         </button>
       </div>
     </div>
-    <div>
+    <div class='emoji-shelf js-scrollable'>
       <div id='latest-emoji-shelf-section' class='emoji-shelf-section js-scrollable-section' data-js-section='latest'>
         <h2 class='emoji-shelf-title'>
           <span>Latest used</span>
@@ -46,241 +46,235 @@
         <div id='smileys-emotions-emoji-shelf-section' class='emoji-shelf-section js-scrollable-section' data-js-section='smileys-emotions'>
           <h2 class='emoji-shelf-title'>Smileys & emotions</h2>
           <div class='emojis'>
-            <a class='emoji js-clickable-emoji' href='#grinning-emoji' title='Grinning'>😀</a>
-            <a class='emoji js-clickable-emoji' href='#smile-emoji' title='Smile'>😄</a>
-            <a class='emoji js-clickable-emoji' href='#smiley-emoji' title='Smiley'>😃</a>
-            <a class='emoji js-clickable-emoji' href='#satisfied-emoji' title='Satisfied'>😆</a>
-            <a class='emoji js-clickable-emoji' href='#joy-emoji' title='Joy'>😂</a>
-            <a class='emoji js-clickable-emoji' href='#sweat-smile-emoji' title='Sweat smile'>😅</a>
-            <a class='emoji js-clickable-emoji' href='#smirk-emoji' title='Smirk'>😏</a>
-            <a class='emoji js-clickable-emoji' href='#blush-emoji' title='Blush'>😊</a>
-            <a class='emoji js-clickable-emoji' href='#relieved-emoji' title='Relieved'>😌</a>
-            <a class='emoji js-clickable-emoji' href='#sunglasses-emoji' title='Sunglasses'>😎</a>
-            <a class='emoji js-clickable-emoji' href='#heart-eyes-emoji' title='Heart eyes'>😍</a>
-            <a class='emoji js-clickable-emoji' href='#kissing-emoji' title='Kissing'>😚</a>
-            <a class='emoji js-clickable-emoji' href='#wink-emoji' title='Wink'>😉</a>
-            <a class='emoji js-clickable-emoji' href='#tongue-emoji' title='Tongue'>😛</a>
-            <a class='emoji js-clickable-emoji' href='#winking-tongue-emoji' title='Winking tongue'>😜</a>
-            <a class='emoji js-clickable-emoji' href='#tongue-closed-eyes-emoji' title='Tongue closed eyes'>😝</a>
-            <a class='emoji js-clickable-emoji' href='#yum-emoji' title='Yum'>😋</a>
-            <a class='emoji js-clickable-emoji' href='#astonished-emoji' title='Astonished'>😲</a>
-            <a class='emoji js-clickable-emoji' href='#neutral-face-emoji' title='Neutral face'>😐</a>
-            <a class='emoji js-clickable-emoji' href='#anguished-emoji' title='Anguished'>😧</a>
-            <a class='emoji js-clickable-emoji' href='#confused-emoji' title='Confused'>😕</a>
-            <a class='emoji js-clickable-emoji' href='#unamused-emoji' title='Unamused'>😒</a>
-            <a class='emoji js-clickable-emoji' href='#worried-emoji' title='Worried'>😟</a>
-            <a class='emoji js-clickable-emoji' href='#persevere-emoji' title='Persevere'>😣</a>
-            <a class='emoji js-clickable-emoji' href='#confounded-emoji' title='Confounded'>😖</a>
-            <a class='emoji js-clickable-emoji' href='#angry-emoji' title='Angry'>😠</a>
-            <a class='emoji js-clickable-emoji' href='#pensive-emoji' title='Pensive'>😔</a>
-            <a class='emoji js-clickable-emoji' href='#weary-emoji' title='Weary'>😩</a>
-            <a class='emoji js-clickable-emoji' href='#cry-emoji' title='Cry'>😢</a>
-            <a class='emoji js-clickable-emoji' href='#sob-emoji' title='Sob'>😭</a>
-            <a class='emoji js-clickable-emoji' href='#sleepy-emoji' title='Sleepy'>😪</a>
-            <a class='emoji js-clickable-emoji' href='#sleeping-emoji' title='Sleeping'>😴</a>
-            <a class='emoji js-clickable-emoji' href='#fearful-emoji' title='Fearful'>😨</a>
-            <a class='emoji js-clickable-emoji' href='#cold-sweat-emoji' title='Cold sweat'>😰</a>
-            <a class='emoji js-clickable-emoji' href='#scream-emoji' title='Scream'>😱</a>
-            <a class='emoji js-clickable-emoji' href='#innocent-emoji' title='Innocent'>😇</a>
-            <a class='emoji js-clickable-emoji' href='#devil-face-emoji' title='Devil face'>😈</a>
-            <a class='emoji js-clickable-emoji' href='#alien-emoji' title='Alien'>👽</a>
-            <a class='emoji js-clickable-emoji' href='#skull-emoji' title='Skull'>💀</a>
-            <a class='emoji js-clickable-emoji' href='#ghost-emoji' title='Ghost'>👻</a>
-            <a class='emoji js-clickable-emoji' href='#santa-emoji' title='Santa'>🎅</a>
+            <a class='emoji js-filterable-emoji js-clickable-emoji' href='#grinning-emoji' title='Grinning'>😀</a>
+            <a class='emoji js-filterable-emoji js-clickable-emoji' href='#smile-emoji' title='Smile'>😄</a>
+            <a class='emoji js-filterable-emoji js-clickable-emoji' href='#smiley-emoji' title='Smiley'>😃</a>
+            <a class='emoji js-filterable-emoji js-clickable-emoji' href='#satisfied-emoji' title='Satisfied'>😆</a>
+            <a class='emoji js-filterable-emoji js-clickable-emoji' href='#joy-emoji' title='Joy'>😂</a>
+            <a class='emoji js-filterable-emoji js-clickable-emoji' href='#sweat-smile-emoji' title='Sweat smile'>😅</a>
+            <a class='emoji js-filterable-emoji js-clickable-emoji' href='#smirk-emoji' title='Smirk'>😏</a>
+            <a class='emoji js-filterable-emoji js-clickable-emoji' href='#blush-emoji' title='Blush'>😊</a>
+            <a class='emoji js-filterable-emoji js-clickable-emoji' href='#relieved-emoji' title='Relieved'>😌</a>
+            <a class='emoji js-filterable-emoji js-clickable-emoji' href='#sunglasses-emoji' title='Sunglasses'>😎</a>
+            <a class='emoji js-filterable-emoji js-clickable-emoji' href='#heart-eyes-emoji' title='Heart eyes'>😍</a>
+            <a class='emoji js-filterable-emoji js-clickable-emoji' href='#kissing-emoji' title='Kissing'>😚</a>
+            <a class='emoji js-filterable-emoji js-clickable-emoji' href='#wink-emoji' title='Wink'>😉</a>
+            <a class='emoji js-filterable-emoji js-clickable-emoji' href='#tongue-emoji' title='Tongue'>😛</a>
+            <a class='emoji js-filterable-emoji js-clickable-emoji' href='#winking-tongue-emoji' title='Winking tongue'>😜</a>
+            <a class='emoji js-filterable-emoji js-clickable-emoji' href='#tongue-closed-eyes-emoji' title='Tongue closed eyes'>😝</a>
+            <a class='emoji js-filterable-emoji js-clickable-emoji' href='#yum-emoji' title='Yum'>😋</a>
+            <a class='emoji js-filterable-emoji js-clickable-emoji' href='#astonished-emoji' title='Astonished'>😲</a>
+            <a class='emoji js-filterable-emoji js-clickable-emoji' href='#neutral-face-emoji' title='Neutral face'>😐</a>
+            <a class='emoji js-filterable-emoji js-clickable-emoji' href='#anguished-emoji' title='Anguished'>😧</a>
+            <a class='emoji js-filterable-emoji js-clickable-emoji' href='#confused-emoji' title='Confused'>😕</a>
+            <a class='emoji js-filterable-emoji js-clickable-emoji' href='#unamused-emoji' title='Unamused'>😒</a>
+            <a class='emoji js-filterable-emoji js-clickable-emoji' href='#worried-emoji' title='Worried'>😟</a>
+            <a class='emoji js-filterable-emoji js-clickable-emoji' href='#persevere-emoji' title='Persevere'>😣</a>
+            <a class='emoji js-filterable-emoji js-clickable-emoji' href='#confounded-emoji' title='Confounded'>😖</a>
+            <a class='emoji js-filterable-emoji js-clickable-emoji' href='#angry-emoji' title='Angry'>😠</a>
+            <a class='emoji js-filterable-emoji js-clickable-emoji' href='#pensive-emoji' title='Pensive'>😔</a>
+            <a class='emoji js-filterable-emoji js-clickable-emoji' href='#weary-emoji' title='Weary'>😩</a>
+            <a class='emoji js-filterable-emoji js-clickable-emoji' href='#cry-emoji' title='Cry'>😢</a>
+            <a class='emoji js-filterable-emoji js-clickable-emoji' href='#sob-emoji' title='Sob'>😭</a>
+            <a class='emoji js-filterable-emoji js-clickable-emoji' href='#sleepy-emoji' title='Sleepy'>😪</a>
+            <a class='emoji js-filterable-emoji js-clickable-emoji' href='#sleeping-emoji' title='Sleeping'>😴</a>
+            <a class='emoji js-filterable-emoji js-clickable-emoji' href='#fearful-emoji' title='Fearful'>😨</a>
+            <a class='emoji js-filterable-emoji js-clickable-emoji' href='#cold-sweat-emoji' title='Cold sweat'>😰</a>
+            <a class='emoji js-filterable-emoji js-clickable-emoji' href='#scream-emoji' title='Scream'>😱</a>
+            <a class='emoji js-filterable-emoji js-clickable-emoji' href='#innocent-emoji' title='Innocent'>😇</a>
+            <a class='emoji js-filterable-emoji js-clickable-emoji' href='#devil-face-emoji' title='Devil face'>😈</a>
+            <a class='emoji js-filterable-emoji js-clickable-emoji' href='#alien-emoji' title='Alien'>👽</a>
+            <a class='emoji js-filterable-emoji js-clickable-emoji' href='#skull-emoji' title='Skull'>💀</a>
+            <a class='emoji js-filterable-emoji js-clickable-emoji' href='#ghost-emoji' title='Ghost'>👻</a>
+            <a class='emoji js-filterable-emoji js-clickable-emoji' href='#santa-emoji' title='Santa'>🎅</a>
           </div>
         </div>
         <div id='gestures-emoji-shelf-section' class='emoji-shelf-section js-scrollable-section' data-js-section='gestures'>
           <h2 class='emoji-shelf-title'>Gestures</h2>
           <div class='emojis'>
-            <a class='emoji js-clickable-emoji' href='#+1-emoji' title='+1'>👍</a>
-            <a class='emoji js-clickable-emoji' href='#ok-hand-emoji' title='Ok hand'>👌</a>
-            <a class='emoji js-clickable-emoji' href='#claps-emoji' title='Claps'>👏</a>
-            <a class='emoji js-clickable-emoji' href='#thumbsdown-emoji' title='Thumbsdown'>👎</a>
-            <a class='emoji js-clickable-emoji' href='#raised-hand-emoji' title='Raised hand'>✋</a>
-            <a class='emoji js-clickable-emoji' href='#wave-emoji' title='Wave'>👋</a>
-            <a class='emoji js-clickable-emoji' href='#punch-emoji' title='Punch'>👊</a>
-            <a class='emoji js-clickable-emoji' href='#fist-emoji' title='Fist'>✊</a>
-            <a class='emoji js-clickable-emoji' href='#metal-emoji' title='Metal'>🤘</a>
-            <a class='emoji js-clickable-emoji' href='#win-emoji' title='Win'>✌️</a>
-            <a class='emoji js-clickable-emoji' href='#spock-emoji' title='Spock'>🖖</a>
-            <a class='emoji js-clickable-emoji' href='#point-down-emoji' title='Point down'>👇</a>
-            <a class='emoji js-clickable-emoji' href='#point-left-emoji' title='Point left'>👈</a>
-            <a class='emoji js-clickable-emoji' href='#point-right-emoji' title='Point right'>👉</a>
-            <a class='emoji js-clickable-emoji' href='#point-up-emoji' title='Point up'>☝️</a>
-            <a class='emoji js-clickable-emoji' href='#point-up-emoji' title='Point up'>👆</a>
+            <a class='emoji js-filterable-emoji js-clickable-emoji' href='#+1-emoji' title='+1'>👍</a>
+            <a class='emoji js-filterable-emoji js-clickable-emoji' href='#ok-hand-emoji' title='Ok hand'>👌</a>
+            <a class='emoji js-filterable-emoji js-clickable-emoji' href='#claps-emoji' title='Claps'>👏</a>
+            <a class='emoji js-filterable-emoji js-clickable-emoji' href='#thumbsdown-emoji' title='Thumbsdown'>👎</a>
+            <a class='emoji js-filterable-emoji js-clickable-emoji' href='#raised-hand-emoji' title='Raised hand'>✋</a>
+            <a class='emoji js-filterable-emoji js-clickable-emoji' href='#wave-emoji' title='Wave'>👋</a>
+            <a class='emoji js-filterable-emoji js-clickable-emoji' href='#punch-emoji' title='Punch'>👊</a>
+            <a class='emoji js-filterable-emoji js-clickable-emoji' href='#fist-emoji' title='Fist'>✊</a>
+            <a class='emoji js-filterable-emoji js-clickable-emoji' href='#metal-emoji' title='Metal'>🤘</a>
+            <a class='emoji js-filterable-emoji js-clickable-emoji' href='#win-emoji' title='Win'>✌️</a>
+            <a class='emoji js-filterable-emoji js-clickable-emoji' href='#spock-emoji' title='Spock'>🖖</a>
+            <a class='emoji js-filterable-emoji js-clickable-emoji' href='#point-down-emoji' title='Point down'>👇</a>
+            <a class='emoji js-filterable-emoji js-clickable-emoji' href='#point-left-emoji' title='Point left'>👈</a>
+            <a class='emoji js-filterable-emoji js-clickable-emoji' href='#point-right-emoji' title='Point right'>👉</a>
+            <a class='emoji js-filterable-emoji js-clickable-emoji' href='#point-up-emoji' title='Point up'>☝️</a>
+            <a class='emoji js-filterable-emoji js-clickable-emoji' href='#point-up-emoji' title='Point up'>👆</a>
           </div>
         </div>
         <div id='animals-emoji-shelf-section' class='emoji-shelf-section js-scrollable-section' data-js-section='animals'>
           <h2 class='emoji-shelf-title'>Animals</h2>
           <div class='emojis'>
-            <a class='emoji js-clickable-emoji' href='#baby-chick-emoji' title='Baby chick'>🐤</a>
-            <a class='emoji js-clickable-emoji' href='#bear-emoji' title='Bear'>🐻</a>
-            <a class='emoji js-clickable-emoji' href='#bee-emoji' title='Bee'>🐝</a>
-            <a class='emoji js-clickable-emoji' href='#bird-emoji' title='Bird'>🐦</a>
-            <a class='emoji js-clickable-emoji' href='#boar-emoji' title='Boar'>🐗</a>
-            <a class='emoji js-clickable-emoji' href='#cat-emoji' title='Cat'>🐱</a>
-            <a class='emoji js-clickable-emoji' href='#chicken-emoji' title='Chicken'>🐔</a>
-            <a class='emoji js-clickable-emoji' href='#cow-emoji' title='Cow'>🐮</a>
-            <a class='emoji js-clickable-emoji' href='#dog-emoji' title='Dog'>🐶</a>
-            <a class='emoji js-clickable-emoji' href='#dragon-emoji' title='Dragon'>🐲</a>
-            <a class='emoji js-clickable-emoji' href='#fish-emoji' title='Fish'>🐟</a>
-            <a class='emoji js-clickable-emoji' href='#frog-emoji' title='Frog'>🐸</a>
-            <a class='emoji js-clickable-emoji' href='#hamster-emoji' title='Hamster'>🐹</a>
-            <a class='emoji js-clickable-emoji' href='#horse-emoji' title='Horse'>🐴</a>
-            <a class='emoji js-clickable-emoji' href='#koala-emoji' title='Koala'>🐨</a>
-            <a class='emoji js-clickable-emoji' href='#lion-emoji' title='Lion'>🦁</a>
-            <a class='emoji js-clickable-emoji' href='#monkey-emoji' title='Monkey'>🐵</a>
-            <a class='emoji js-clickable-emoji' href='#mouse-emoji' title='Mouse'>🐭</a>
-            <a class='emoji js-clickable-emoji' href='#octopus-emoji' title='Octopus'>🐙</a>
-            <a class='emoji js-clickable-emoji' href='#panda-emoji' title='Panda'>🐼</a>
-            <a class='emoji js-clickable-emoji' href='#pig-emoji' title='Pig'>🐷</a>
-            <a class='emoji js-clickable-emoji' href='#penguin-emoji' title='Penguin'>🐧</a>
-            <a class='emoji js-clickable-emoji' href='#rabbit-emoji' title='Rabbit'>🐰</a>
-            <a class='emoji js-clickable-emoji' href='#snail-emoji' title='Snail'>🐌</a>
-            <a class='emoji js-clickable-emoji' href='#snake-emoji' title='Snake'>🐍</a>
-            <a class='emoji js-clickable-emoji' href='#tiger-emoji' title='Tiger'>🐯</a>
-            <a class='emoji js-clickable-emoji' href='#turtle-emoji' title='Turtle'>🐢</a>
-            <a class='emoji js-clickable-emoji' href='#wolf-emoji' title='Wolf'>🐺</a>
-            <a class='emoji js-clickable-emoji' href='#smile-cat-emoji' title='Smile cat'>😸</a>
-            <a class='emoji js-clickable-emoji' href='#smiley-cat-emoji' title='Smiley cat'>😺</a>
-            <a class='emoji js-clickable-emoji' href='#joy-cat-emoji' title='Joy cat'>😹</a>
-            <a class='emoji js-clickable-emoji' href='#heary-eyes-cat-emoji' title='Heary eyes cat'>😻</a>
-            <a class='emoji js-clickable-emoji' href='#kissing-cat-emoji' title='Kissing cat'>😽</a>
-            <a class='emoji js-clickable-emoji' href='#smirk-cat-emoji' title='Smirk cat'>😼</a>
-            <a class='emoji js-clickable-emoji' href='#pouting-cat-emoji' title='Pouting cat'>😾</a>
-            <a class='emoji js-clickable-emoji' href='#crying-cat-emoji' title='Crying cat'>😿</a>
-            <a class='emoji js-clickable-emoji' href='#scream-cat-emoji' title='Scream cat'>🙀</a>
-            <a class='emoji js-clickable-emoji' href='#see-no-evil-emoji' title='See no evil'>🙈</a>
-            <a class='emoji js-clickable-emoji' href='#hear-no-evil-emoji' title='Hear no evil'>🙉</a>
-            <a class='emoji js-clickable-emoji' href='#speak-no-evil-emoji' title='Speak no evil'>🙊</a>
+            <a class='emoji js-filterable-emoji js-clickable-emoji' href='#baby-chick-emoji' title='Baby chick'>🐤</a>
+            <a class='emoji js-filterable-emoji js-clickable-emoji' href='#bear-emoji' title='Bear'>🐻</a>
+            <a class='emoji js-filterable-emoji js-clickable-emoji' href='#bee-emoji' title='Bee'>🐝</a>
+            <a class='emoji js-filterable-emoji js-clickable-emoji' href='#bird-emoji' title='Bird'>🐦</a>
+            <a class='emoji js-filterable-emoji js-clickable-emoji' href='#boar-emoji' title='Boar'>🐗</a>
+            <a class='emoji js-filterable-emoji js-clickable-emoji' href='#cat-emoji' title='Cat'>🐱</a>
+            <a class='emoji js-filterable-emoji js-clickable-emoji' href='#chicken-emoji' title='Chicken'>🐔</a>
+            <a class='emoji js-filterable-emoji js-clickable-emoji' href='#cow-emoji' title='Cow'>🐮</a>
+            <a class='emoji js-filterable-emoji js-clickable-emoji' href='#dog-emoji' title='Dog'>🐶</a>
+            <a class='emoji js-filterable-emoji js-clickable-emoji' href='#dragon-emoji' title='Dragon'>🐲</a>
+            <a class='emoji js-filterable-emoji js-clickable-emoji' href='#fish-emoji' title='Fish'>🐟</a>
+            <a class='emoji js-filterable-emoji js-clickable-emoji' href='#frog-emoji' title='Frog'>🐸</a>
+            <a class='emoji js-filterable-emoji js-clickable-emoji' href='#hamster-emoji' title='Hamster'>🐹</a>
+            <a class='emoji js-filterable-emoji js-clickable-emoji' href='#horse-emoji' title='Horse'>🐴</a>
+            <a class='emoji js-filterable-emoji js-clickable-emoji' href='#koala-emoji' title='Koala'>🐨</a>
+            <a class='emoji js-filterable-emoji js-clickable-emoji' href='#lion-emoji' title='Lion'>🦁</a>
+            <a class='emoji js-filterable-emoji js-clickable-emoji' href='#monkey-emoji' title='Monkey'>🐵</a>
+            <a class='emoji js-filterable-emoji js-clickable-emoji' href='#mouse-emoji' title='Mouse'>🐭</a>
+            <a class='emoji js-filterable-emoji js-clickable-emoji' href='#octopus-emoji' title='Octopus'>🐙</a>
+            <a class='emoji js-filterable-emoji js-clickable-emoji' href='#panda-emoji' title='Panda'>🐼</a>
+            <a class='emoji js-filterable-emoji js-clickable-emoji' href='#pig-emoji' title='Pig'>🐷</a>
+            <a class='emoji js-filterable-emoji js-clickable-emoji' href='#penguin-emoji' title='Penguin'>🐧</a>
+            <a class='emoji js-filterable-emoji js-clickable-emoji' href='#rabbit-emoji' title='Rabbit'>🐰</a>
+            <a class='emoji js-filterable-emoji js-clickable-emoji' href='#snail-emoji' title='Snail'>🐌</a>
+            <a class='emoji js-filterable-emoji js-clickable-emoji' href='#snake-emoji' title='Snake'>🐍</a>
+            <a class='emoji js-filterable-emoji js-clickable-emoji' href='#tiger-emoji' title='Tiger'>🐯</a>
+            <a class='emoji js-filterable-emoji js-clickable-emoji' href='#turtle-emoji' title='Turtle'>🐢</a>
+            <a class='emoji js-filterable-emoji js-clickable-emoji' href='#wolf-emoji' title='Wolf'>🐺</a>
+            <a class='emoji js-filterable-emoji js-clickable-emoji' href='#smile-cat-emoji' title='Smile cat'>😸</a>
+            <a class='emoji js-filterable-emoji js-clickable-emoji' href='#smiley-cat-emoji' title='Smiley cat'>😺</a>
+            <a class='emoji js-filterable-emoji js-clickable-emoji' href='#joy-cat-emoji' title='Joy cat'>😹</a>
+            <a class='emoji js-filterable-emoji js-clickable-emoji' href='#heary-eyes-cat-emoji' title='Heary eyes cat'>😻</a>
+            <a class='emoji js-filterable-emoji js-clickable-emoji' href='#kissing-cat-emoji' title='Kissing cat'>😽</a>
+            <a class='emoji js-filterable-emoji js-clickable-emoji' href='#smirk-cat-emoji' title='Smirk cat'>😼</a>
+            <a class='emoji js-filterable-emoji js-clickable-emoji' href='#pouting-cat-emoji' title='Pouting cat'>😾</a>
+            <a class='emoji js-filterable-emoji js-clickable-emoji' href='#crying-cat-emoji' title='Crying cat'>😿</a>
+            <a class='emoji js-filterable-emoji js-clickable-emoji' href='#scream-cat-emoji' title='Scream cat'>🙀</a>
+            <a class='emoji js-filterable-emoji js-clickable-emoji' href='#see-no-evil-emoji' title='See no evil'>🙈</a>
+            <a class='emoji js-filterable-emoji js-clickable-emoji' href='#hear-no-evil-emoji' title='Hear no evil'>🙉</a>
+            <a class='emoji js-filterable-emoji js-clickable-emoji' href='#speak-no-evil-emoji' title='Speak no evil'>🙊</a>
           </div>
         </div>
         <div id='food-drink-emoji-shelf-section' class='emoji-shelf-section js-scrollable-section' data-js-section='food-drink'>
           <h2 class='emoji-shelf-title'>Food & drink</h2>
           <div class='emojis'>
-            <a class='emoji js-clickable-emoji' href='#apple-emoji' title='Apple'>🍎</a>
-            <a class='emoji js-clickable-emoji' href='#banana-emoji' title='Banana'>🍌</a>
-            <a class='emoji js-clickable-emoji' href='#cherries-emoji' title='Cherries'>🍒</a>
-            <a class='emoji js-clickable-emoji' href='#grapes-emoji' title='Grapes'>🍇</a>
-            <a class='emoji js-clickable-emoji' href='#green-apple-emoji' title='Green apple'>🍏</a>
-            <a class='emoji js-clickable-emoji' href='#lemon-emoji' title='Lemon'>🍋</a>
-            <a class='emoji js-clickable-emoji' href='#melon-emoji' title='Melon'>🍈</a>
-            <a class='emoji js-clickable-emoji' href='#peach-emoji' title='Peach'>🍑</a>
-            <a class='emoji js-clickable-emoji' href='#pear-emoji' title='Pear'>🍐</a>
-            <a class='emoji js-clickable-emoji' href='#pineapple-emoji' title='Pineapple'>🍍</a>
-            <a class='emoji js-clickable-emoji' href='#strawberry-emoji' title='Strawberry'>🍓</a>
-            <a class='emoji js-clickable-emoji' href='#tangerine-emoji' title='Tangerine'>🍊</a>
-            <a class='emoji js-clickable-emoji' href='#watermelon-emoji' title='Watermelon'>🍉</a>
-            <a class='emoji js-clickable-emoji' href='#pizza-emoji' title='Pizza'>🍕</a>
-            <a class='emoji js-clickable-emoji' href='#hamburger-emoji' title='Hamburger'>🍔</a>
-            <a class='emoji js-clickable-emoji' href='#chips-emoji' title='Chips'>🍟</a>
-            <a class='emoji js-clickable-emoji' href='#bread-emoji' title='Bread'>🍞</a>
-            <a class='emoji js-clickable-emoji' href='#fork-and-knife-emoji' title='Fork and knife'>🍴</a>
-            <a class='emoji js-clickable-emoji' href='#spaghetti-emoji' title='Spaghetti'>🍝</a>
-            <a class='emoji js-clickable-emoji' href='#sushi-emoji' title='Sushi'>🍣</a>
-            <a class='emoji js-clickable-emoji' href='#rice-emoji' title='Rice'>🍚</a>
-            <a class='emoji js-clickable-emoji' href='#rice-ball-emoji' title='Rice ball'>🍙</a>
-            <a class='emoji js-clickable-emoji' href='#doughnut-emoji' title='Doughnut'>🍩</a>
-            <a class='emoji js-clickable-emoji' href='#cookie-emoji' title='Cookie'>🍪</a>
-            <a class='emoji js-clickable-emoji' href='#birthday-emoji' title='Birthday'>🎂</a>
-            <a class='emoji js-clickable-emoji' href='#cake-emoji' title='Cake'>🍰</a>
-            <a class='emoji js-clickable-emoji' href='#icecream-emoji' title='Icecream'>🍨</a>
-            <a class='emoji js-clickable-emoji' href='#candy-emoji' title='Candy'>🍬</a>
-            <a class='emoji js-clickable-emoji' href='#beer-emoji' title='Beer'>🍺</a>
-            <a class='emoji js-clickable-emoji' href='#beers-emoji' title='Beers'>🍻</a>
-            <a class='emoji js-clickable-emoji' href='#coffee-emoji' title='Coffee'>☕️</a>
-            <a class='emoji js-clickable-emoji' href='#cocktail-emoji' title='Cocktail'>🍸</a>
-            <a class='emoji js-clickable-emoji' href='#wine-glass-emoji' title='Wine glass'>🍷</a>
+            <a class='emoji js-filterable-emoji js-clickable-emoji' href='#apple-emoji' title='Apple'>🍎</a>
+            <a class='emoji js-filterable-emoji js-clickable-emoji' href='#banana-emoji' title='Banana'>🍌</a>
+            <a class='emoji js-filterable-emoji js-clickable-emoji' href='#cherries-emoji' title='Cherries'>🍒</a>
+            <a class='emoji js-filterable-emoji js-clickable-emoji' href='#grapes-emoji' title='Grapes'>🍇</a>
+            <a class='emoji js-filterable-emoji js-clickable-emoji' href='#green-apple-emoji' title='Green apple'>🍏</a>
+            <a class='emoji js-filterable-emoji js-clickable-emoji' href='#lemon-emoji' title='Lemon'>🍋</a>
+            <a class='emoji js-filterable-emoji js-clickable-emoji' href='#melon-emoji' title='Melon'>🍈</a>
+            <a class='emoji js-filterable-emoji js-clickable-emoji' href='#peach-emoji' title='Peach'>🍑</a>
+            <a class='emoji js-filterable-emoji js-clickable-emoji' href='#pear-emoji' title='Pear'>🍐</a>
+            <a class='emoji js-filterable-emoji js-clickable-emoji' href='#pineapple-emoji' title='Pineapple'>🍍</a>
+            <a class='emoji js-filterable-emoji js-clickable-emoji' href='#strawberry-emoji' title='Strawberry'>🍓</a>
+            <a class='emoji js-filterable-emoji js-clickable-emoji' href='#tangerine-emoji' title='Tangerine'>🍊</a>
+            <a class='emoji js-filterable-emoji js-clickable-emoji' href='#watermelon-emoji' title='Watermelon'>🍉</a>
+            <a class='emoji js-filterable-emoji js-clickable-emoji' href='#pizza-emoji' title='Pizza'>🍕</a>
+            <a class='emoji js-filterable-emoji js-clickable-emoji' href='#hamburger-emoji' title='Hamburger'>🍔</a>
+            <a class='emoji js-filterable-emoji js-clickable-emoji' href='#chips-emoji' title='Chips'>🍟</a>
+            <a class='emoji js-filterable-emoji js-clickable-emoji' href='#bread-emoji' title='Bread'>🍞</a>
+            <a class='emoji js-filterable-emoji js-clickable-emoji' href='#fork-and-knife-emoji' title='Fork and knife'>🍴</a>
+            <a class='emoji js-filterable-emoji js-clickable-emoji' href='#spaghetti-emoji' title='Spaghetti'>🍝</a>
+            <a class='emoji js-filterable-emoji js-clickable-emoji' href='#sushi-emoji' title='Sushi'>🍣</a>
+            <a class='emoji js-filterable-emoji js-clickable-emoji' href='#rice-emoji' title='Rice'>🍚</a>
+            <a class='emoji js-filterable-emoji js-clickable-emoji' href='#rice-ball-emoji' title='Rice ball'>🍙</a>
+            <a class='emoji js-filterable-emoji js-clickable-emoji' href='#doughnut-emoji' title='Doughnut'>🍩</a>
+            <a class='emoji js-filterable-emoji js-clickable-emoji' href='#cookie-emoji' title='Cookie'>🍪</a>
+            <a class='emoji js-filterable-emoji js-clickable-emoji' href='#birthday-emoji' title='Birthday'>🎂</a>
+            <a class='emoji js-filterable-emoji js-clickable-emoji' href='#cake-emoji' title='Cake'>🍰</a>
+            <a class='emoji js-filterable-emoji js-clickable-emoji' href='#icecream-emoji' title='Icecream'>🍨</a>
+            <a class='emoji js-filterable-emoji js-clickable-emoji' href='#candy-emoji' title='Candy'>🍬</a>
+            <a class='emoji js-filterable-emoji js-clickable-emoji' href='#beer-emoji' title='Beer'>🍺</a>
+            <a class='emoji js-filterable-emoji js-clickable-emoji' href='#beers-emoji' title='Beers'>🍻</a>
+            <a class='emoji js-filterable-emoji js-clickable-emoji' href='#coffee-emoji' title='Coffee'>☕️</a>
+            <a class='emoji js-filterable-emoji js-clickable-emoji' href='#cocktail-emoji' title='Cocktail'>🍸</a>
+            <a class='emoji js-filterable-emoji js-clickable-emoji' href='#wine-glass-emoji' title='Wine glass'>🍷</a>
           </div>
         </div>
         <div id='sports-emoji-shelf-section' class='emoji-shelf-section js-scrollable-section' data-js-section='sports'>
           <h2 class='emoji-shelf-title'>Sports</h2>
           <div class='emojis'>
-            <a class='emoji js-clickable-emoji' href='#baseball-emoji' title='Baseball'>⚾️</a>
-            <a class='emoji js-clickable-emoji' href='#basket-ball-emoji' title='Basket ball'>🏀</a>
-            <a class='emoji js-clickable-emoji' href='#rugby-emoji' title='Rugby'>🏈</a>
-            <a class='emoji js-clickable-emoji' href='#soccer-ball-emoji' title='Soccer ball'>⚽️</a>
-            <a class='emoji js-clickable-emoji' href='#tennis-emoji' title='Tennis'>🎾</a>
-            <a class='emoji js-clickable-emoji' href='#bowling-emoji' title='Bowling'>🎳</a>
-            <a class='emoji js-clickable-emoji' href='#dart-emoji' title='Dart'>🎯</a>
-            <a class='emoji js-clickable-emoji' href='#8balls-emoji' title='8balls'>🎱</a>
-            <a class='emoji js-clickable-emoji' href='#bike-emoji' title='Bike'>🚴</a>
-            <a class='emoji js-clickable-emoji' href='#rowboat-emoji' title='Rowboat'>🚣</a>
-            <a class='emoji js-clickable-emoji' href='#showboarder-emoji' title='Showboarder'>🏂</a>
-            <a class='emoji js-clickable-emoji' href='#surfing-emoji' title='Surfing'>🏄</a>
-            <a class='emoji js-clickable-emoji' href='#golf-emoji' title='Golf'>⛳️</a>
-            <a class='emoji js-clickable-emoji' href='#horse-racing-emoji' title='Horse racing'>🏇</a>
-            <a class='emoji js-clickable-emoji' href='#run-emoji' title='Run'>🏃</a>
-            <a class='emoji js-clickable-emoji' href='#swimming-emoji' title='Swimming'>🏊</a>
-            <a class='emoji js-clickable-emoji' href='#ski-emoji' title='Ski'>🎿</a>
+            <a class='emoji js-filterable-emoji js-clickable-emoji' href='#baseball-emoji' title='Baseball'>⚾️</a>
+            <a class='emoji js-filterable-emoji js-clickable-emoji' href='#basket-ball-emoji' title='Basket ball'>🏀</a>
+            <a class='emoji js-filterable-emoji js-clickable-emoji' href='#bike-emoji' title='Bike'>🚴</a>
+            <a class='emoji js-filterable-emoji js-clickable-emoji' href='#bowling-emoji' title='Bowling'>🎳</a>
+            <a class='emoji js-filterable-emoji js-clickable-emoji' href='#dart-emoji' title='Dart'>🎯</a>
+            <a class='emoji js-filterable-emoji js-clickable-emoji' href='#golf-emoji' title='Golf'>⛳️</a>
+            <a class='emoji js-filterable-emoji js-clickable-emoji' href='#horse-racing-emoji' title='Horse racing'>🏇</a>
+            <a class='emoji js-filterable-emoji js-clickable-emoji' href='#rowboat-emoji' title='Rowboat'>🚣</a>
+            <a class='emoji js-filterable-emoji js-clickable-emoji' href='#rugby-emoji' title='Rugby'>🏈</a>
+            <a class='emoji js-filterable-emoji js-clickable-emoji' href='#run-emoji' title='Run'>🏃</a>
+            <a class='emoji js-filterable-emoji js-clickable-emoji' href='#ski-emoji' title='Ski'>🎿</a>
+            <a class='emoji js-filterable-emoji js-clickable-emoji' href='#snowboarder-emoji' title='Snowboarder'>🏂</a>
+            <a class='emoji js-filterable-emoji js-clickable-emoji' href='#soccer-ball-emoji' title='Soccer ball'>⚽️</a>
+            <a class='emoji js-filterable-emoji js-clickable-emoji' href='#surfing-emoji' title='Surfing'>🏄</a>
+            <a class='emoji js-filterable-emoji js-clickable-emoji' href='#swimming-emoji' title='Swimming'>🏊</a>
+            <a class='emoji js-filterable-emoji js-clickable-emoji' href='#tennis-emoji' title='Tennis'>🎾</a>
+            <a class='emoji js-filterable-emoji js-clickable-emoji' href='#8balls-emoji' title='8balls'>🎱</a>
           </div>
         </div>
         <div id='objects-emoji-shelf-section' class='emoji-shelf-section js-scrollable-section' data-js-section='objects'>
           <h2 class='emoji-shelf-title'>Objects</h2>
           <div class='emojis'>
-            <a class='emoji js-clickable-emoji' href='#balloon-emoji' title='Balloon'>🎈</a>
-            <a class='emoji js-clickable-emoji' href='#dice-emoji' title='Dice'>🎲</a>
-            <a class='emoji js-clickable-emoji' href='#rocket-emoji' title='Rocket'>🚀</a>
-            <a class='emoji js-clickable-emoji' href='#videogame-emoji' title='Videogame'>🎮</a>
-            <a class='emoji js-clickable-emoji' href='#art-emoji' title='Art'>🎨</a>
-            <a class='emoji js-clickable-emoji' href='#alarm-clock-emoji' title='Alarm clock'>⏰</a>
-            <a class='emoji js-clickable-emoji' href='#gift-emoji' title='Gift'>🎁</a>
-            <a class='emoji js-clickable-emoji' href='#eye-glass-emoji' title='Eye glass'>👓</a>
-            <a class='emoji js-clickable-emoji' href='#shell-emoji' title='Shell'>🐚</a>
-            <a class='emoji js-clickable-emoji' href='#bulb-emoji' title='Bulb'>💡</a>
-            <a class='emoji js-clickable-emoji' href='#bell-emoji' title='Bell'>🔔</a>
-            <a class='emoji js-clickable-emoji' href='#crystal-ball-emoji' title='Crystal ball'>🔮</a>
-            <a class='emoji js-clickable-emoji' href='#pill-emoji' title='Pill'>💊</a>
-            <a class='emoji js-clickable-emoji' href='#telephone-emoji' title='Telephone'>☎️</a>
-            <a class='emoji js-clickable-emoji' href='#wrench-emoji' title='Wrench'>🔧</a>
-            <a class='emoji js-clickable-emoji' href='#checkered-flag-emoji' title='Checkered flag'>🏁</a>
-            <a class='emoji js-clickable-emoji' href='#clapper-emoji' title='Clapper'>🎬</a>
-            <a class='emoji js-clickable-emoji' href='#trophy-emoji' title='Trophy'>🏆</a>
-            <a class='emoji js-clickable-emoji' href='#ring-emoji' title='Ring'>💍</a>
-            <a class='emoji js-clickable-emoji' href='#crown-emoji' title='Crown'>👑</a>
-            <a class='emoji js-clickable-emoji' href='#diamond-emoji' title='Diamond'>💎</a>
-            <a class='emoji js-clickable-emoji' href='#tulip-emoji' title='Tulip'>🌷</a>
-            <a class='emoji js-clickable-emoji' href='#floppy-emoji' title='Floppy'>💾</a>
-            <a class='emoji js-clickable-emoji' href='#bomb-emoji' title='Bomb'>💣</a>
-            <a class='emoji js-clickable-emoji' href='#lipstick-emoji' title='Lipstick'>💄</a>
-            <a class='emoji js-clickable-emoji' href='#lollipop-emoji' title='Lollipop'>🍭</a>
+            <a class='emoji js-filterable-emoji js-clickable-emoji' href='#balloon-emoji' title='Balloon'>🎈</a>
+            <a class='emoji js-filterable-emoji js-clickable-emoji' href='#lollipop-emoji' title='Lollipop'>🍭</a>
+            <a class='emoji js-filterable-emoji js-clickable-emoji' href='#dice-emoji' title='Dice'>🎲</a>
+            <a class='emoji js-filterable-emoji js-clickable-emoji' href='#checkered-flag-emoji' title='Checkered flag'>🏁</a>
+            <a class='emoji js-filterable-emoji js-clickable-emoji' href='#videogame-emoji' title='Videogame'>🎮</a>
+            <a class='emoji js-filterable-emoji js-clickable-emoji' href='#art-emoji' title='Art'>🎨</a>
+            <a class='emoji js-filterable-emoji js-clickable-emoji' href='#alarm-clock-emoji' title='Alarm clock'>⏰</a>
+            <a class='emoji js-filterable-emoji js-clickable-emoji' href='#gift-emoji' title='Gift'>🎁</a>
+            <a class='emoji js-filterable-emoji js-clickable-emoji' href='#shell-emoji' title='Shell'>🐚</a>
+            <a class='emoji js-filterable-emoji js-clickable-emoji' href='#wrench-emoji' title='Wrench'>🔧</a>
+            <a class='emoji js-filterable-emoji js-clickable-emoji' href='#bulb-emoji' title='Bulb'>💡</a>
+            <a class='emoji js-filterable-emoji js-clickable-emoji' href='#rocket-emoji' title='Rocket'>🚀</a>
+            <a class='emoji js-filterable-emoji js-clickable-emoji' href='#bell-emoji' title='Bell'>🔔</a>
+            <a class='emoji js-filterable-emoji js-clickable-emoji' href='#trophy-emoji' title='Trophy'>🏆</a>
+            <a class='emoji js-filterable-emoji js-clickable-emoji' href='#ring-emoji' title='Ring'>💍</a>
+            <a class='emoji js-filterable-emoji js-clickable-emoji' href='#crown-emoji' title='Crown'>👑</a>
+            <a class='emoji js-filterable-emoji js-clickable-emoji' href='#diamond-emoji' title='Diamond'>💎</a>
+            <a class='emoji js-filterable-emoji js-clickable-emoji' href='#tulip-emoji' title='Tulip'>🌷</a>
+            <a class='emoji js-filterable-emoji js-clickable-emoji' href='#bomb-emoji' title='Bomb'>💣</a>
+            <a class='emoji js-filterable-emoji js-clickable-emoji' href='#crystal-ball-emoji' title='Crystal ball'>🔮</a>
           </div>
         </div>
         <div id='symbols-emoji-shelf-section' class='emoji-shelf-section js-scrollable-section' data-js-section='symbols'>
           <h2 class='emoji-shelf-title'>Symbols</h2>
           <div class='emojis'>
-            <a class='emoji js-clickable-emoji' href='#heart-emoji' title='Heart'>❤️</a>
-            <a class='emoji js-clickable-emoji' href='#green-heart-emoji' title='Green heart'>💚</a>
-            <a class='emoji js-clickable-emoji' href='#blue-heart-emoji' title='Blue heart'>💙</a>
-            <a class='emoji js-clickable-emoji' href='#yellow-heart-emoji' title='Yellow heart'>💛</a>
-            <a class='emoji js-clickable-emoji' href='#purple-heart-emoji' title='Purple heart'>💜</a>
-            <a class='emoji js-clickable-emoji' href='#broken-heart-emoji' title='Broken heart'>💔</a>
-            <a class='emoji js-clickable-emoji' href='#heartpulse-emoji' title='Heartpulse'>💗</a>
-            <a class='emoji js-clickable-emoji' href='#sparkling-heart-emoji' title='Sparkling heart'>💖</a>
-            <a class='emoji js-clickable-emoji' href='#cupid-emoji' title='Cupid'>💘</a>
-            <a class='emoji js-clickable-emoji' href='#two-hearts-emoji' title='Two hearts'>💕</a>
-            <a class='emoji js-clickable-emoji' href='#kiss-emoji' title='Kiss'>💋</a>
-            <a class='emoji js-clickable-emoji' href='#ribbon-emoji' title='Ribbon'>🎀</a>
-            <a class='emoji js-clickable-emoji' href='#tada-emoji' title='Tada'>🎉</a>
-            <a class='emoji js-clickable-emoji' href='#confetti-ball-emoji' title='Confetti ball'>🎊</a>
-            <a class='emoji js-clickable-emoji' href='#zap-emoji' title='Zap'>⚡️</a>
-            <a class='emoji js-clickable-emoji' href='#collision-emoji' title='Collision'>💥</a>
-            <a class='emoji js-clickable-emoji' href='#sparkles-emoji' title='Sparkles'>✨</a>
-            <a class='emoji js-clickable-emoji' href='#four-leaf-clover-emoji' title='Four leaf clover'>🍀</a>
-            <a class='emoji js-clickable-emoji' href='#maple-leaf-emoji' title='Maple leaf'>🍁</a>
-            <a class='emoji js-clickable-emoji' href='#snowflake-emoji' title='Snowflake'>❄️</a>
-            <a class='emoji js-clickable-emoji' href='#blossom-emoji' title='Blossom'>🌼</a>
-            <a class='emoji js-clickable-emoji' href='#fire-emoji' title='Fire'>🔥</a>
-            <a class='emoji js-clickable-emoji' href='#droplet-emoji' title='Droplet'>💧</a>
-            <a class='emoji js-clickable-emoji' href='#poop-emoji' title='Poop'>💩</a>
-            <a class='emoji js-clickable-emoji' href='#clubs-emoji' title='Clubs'>♣️</a>
-            <a class='emoji js-clickable-emoji' href='#spades-emoji' title='Spades'>♠️</a>
-            <a class='emoji js-clickable-emoji' href='#diamonds-emoji' title='Diamonds'>♦️</a>
-            <a class='emoji js-clickable-emoji' href='#hearts-emoji' title='Hearts'>♥️</a>
-            <a class='emoji js-clickable-emoji' href='#money-bag-emoji' title='Money bag'>💰</a>
-            <a class='emoji js-clickable-emoji' href='#musical-note-emoji' title='Musical note'>🎵</a>
-            <a class='emoji js-clickable-emoji' href='#question-emoji' title='Question'>❔</a>
-            <a class='emoji js-clickable-emoji' href='#exclamation-emoji' title='Exclamation'>❕</a>
+            <a class='emoji js-filterable-emoji js-clickable-emoji' href='#heart-emoji' title='Heart'>❤️</a>
+            <a class='emoji js-filterable-emoji js-clickable-emoji' href='#green-heart-emoji' title='Green heart'>💚</a>
+            <a class='emoji js-filterable-emoji js-clickable-emoji' href='#blue-heart-emoji' title='Blue heart'>💙</a>
+            <a class='emoji js-filterable-emoji js-clickable-emoji' href='#yellow-heart-emoji' title='Yellow heart'>💛</a>
+            <a class='emoji js-filterable-emoji js-clickable-emoji' href='#purple-heart-emoji' title='Purple heart'>💜</a>
+            <a class='emoji js-filterable-emoji js-clickable-emoji' href='#broken-heart-emoji' title='Broken heart'>💔</a>
+            <a class='emoji js-filterable-emoji js-clickable-emoji' href='#heartpulse-emoji' title='Heartpulse'>💗</a>
+            <a class='emoji js-filterable-emoji js-clickable-emoji' href='#sparkling-heart-emoji' title='Sparkling heart'>💖</a>
+            <a class='emoji js-filterable-emoji js-clickable-emoji' href='#cupid-emoji' title='Cupid'>💘</a>
+            <a class='emoji js-filterable-emoji js-clickable-emoji' href='#two-hearts-emoji' title='Two hearts'>💕</a>
+            <a class='emoji js-filterable-emoji js-clickable-emoji' href='#kiss-emoji' title='Kiss'>💋</a>
+            <a class='emoji js-filterable-emoji js-clickable-emoji' href='#ribbon-emoji' title='Ribbon'>🎀</a>
+            <a class='emoji js-filterable-emoji js-clickable-emoji' href='#tada-emoji' title='Tada'>🎉</a>
+            <a class='emoji js-filterable-emoji js-clickable-emoji' href='#confetti-ball-emoji' title='Confetti ball'>🎊</a>
+            <a class='emoji js-filterable-emoji js-clickable-emoji' href='#zap-emoji' title='Zap'>⚡️</a>
+            <a class='emoji js-filterable-emoji js-clickable-emoji' href='#collision-emoji' title='Collision'>💥</a>
+            <a class='emoji js-filterable-emoji js-clickable-emoji' href='#sparkles-emoji' title='Sparkles'>✨</a>
+            <a class='emoji js-filterable-emoji js-clickable-emoji' href='#four-leaf-clover-emoji' title='Four leaf clover'>🍀</a>
+            <a class='emoji js-filterable-emoji js-clickable-emoji' href='#maple-leaf-emoji' title='Maple leaf'>🍁</a>
+            <a class='emoji js-filterable-emoji js-clickable-emoji' href='#snowflake-emoji' title='Snowflake'>❄️</a>
+            <a class='emoji js-filterable-emoji js-clickable-emoji' href='#blossom-emoji' title='Blossom'>🌼</a>
+            <a class='emoji js-filterable-emoji js-clickable-emoji' href='#fire-emoji' title='Fire'>🔥</a>
+            <a class='emoji js-filterable-emoji js-clickable-emoji' href='#droplet-emoji' title='Droplet'>💧</a>
+            <a class='emoji js-filterable-emoji js-clickable-emoji' href='#poop-emoji' title='Poop'>💩</a>
+            <a class='emoji js-filterable-emoji js-clickable-emoji' href='#clubs-emoji' title='Clubs'>♣️</a>
+            <a class='emoji js-filterable-emoji js-clickable-emoji' href='#spades-emoji' title='Spades'>♠️</a>
+            <a class='emoji js-filterable-emoji js-clickable-emoji' href='#diamonds-emoji' title='Diamonds'>♦️</a>
+            <a class='emoji js-filterable-emoji js-clickable-emoji' href='#hearts-emoji' title='Hearts'>♥️</a>
+            <a class='emoji js-filterable-emoji js-clickable-emoji' href='#money-bag-emoji' title='Money bag'>💰</a>
+            <a class='emoji js-filterable-emoji js-clickable-emoji' href='#musical-note-emoji' title='Musical note'>🎵</a>
+            <a class='emoji js-filterable-emoji js-clickable-emoji' href='#question-emoji' title='Question'>❔</a>
+            <a class='emoji js-filterable-emoji js-clickable-emoji' href='#exclamation-emoji' title='Exclamation'>❕</a>
           </div>
         </div>
     </div>

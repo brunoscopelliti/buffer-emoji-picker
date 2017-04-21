@@ -11,16 +11,16 @@
     {{/each}}
     </ul>
   </div>
-  <div class='emoji-shelf js-scrollable'>
+  <div class='emoji-box'>
     <div class='search-box'>
       <div class='input-wrapper'>
-        <input type='text' name='emoji-filter' placeholder='Search for emoji' />
+        <input type='text' id='emoji-filter' name='emoji-filter' placeholder='Search for emoji' />
         <button class='clear-input-btn js-clear-input-btn contextual-btn is-hidden' aria-hidden='true'>
           <img title='Clear search' src='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAA8ElEQVRIS+2TvQ4BURCFvw0PoRDPoPLTq9BI1BIFj0Sh8AqCROENUOl14jXIJPcma7P3ztxio7HtTs4355w7GRV/WcX6/AFqwj+NqA20gL2y5gR4APeyuZiDDnAElsAuAJkCK2AI3FIBMt8FDgGIKi4Clg4EIk4WOScmcSvAO/GQuotlBFy1Z2Rx4DXEyRl4AwOLeIoDmZVYNo42jxT/ZcrqwGcusdRc8flOgklZACK+BkT84pR6VogGKBP32/bdEUadxABjYFvYvBiFh8yAU+qhNYFG6EJzYnLxT+CVCtCeuOm/1oFJJDb0B6gRVh7RBzjeKRmVCdcIAAAAAElFTkSuQmCC'/>
         </button>
       </div>
     </div>
-    <div>
+    <div class='emoji-shelf js-scrollable'>
       <div id='latest-emoji-shelf-section' class='emoji-shelf-section js-scrollable-section' data-js-section='latest'>
         <h2 class='emoji-shelf-title'>
           <span>Latest used</span>
@@ -32,7 +32,7 @@
           <h2 class='emoji-shelf-title'>{{{capitalize @key}}}</h2>
           <div class='emojis'>
           {{#each this}}
-            <a class='emoji js-clickable-emoji' href='#{{tokenize name}}-emoji' title='{{capitalize name}}'>{{emoji}}</a>
+            <a class='emoji js-filterable-emoji js-clickable-emoji' href='#{{tokenize name}}-emoji' title='{{capitalize name}}'>{{emoji}}</a>
           {{/each}}
           </div>
         </div>

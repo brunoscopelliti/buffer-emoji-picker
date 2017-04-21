@@ -8,15 +8,37 @@ import {
   editorInputSelector
 } from 'selectors';
 
+import {
+  onQueryChange,
+  resetQueryField
+} from 'picker/query-box';
 
 
 
+const listenClicks = listen.bind(null, 'click');
 
+/**
+ * @name setupEmojiPicker
+ * @param {HTMLElement} root 
+ * @param {HTMLElement} button 
+ */
 const setupEmojiPicker = (root, button) => {
+
+
+
+
 
   // That's mostly an advanced POC
 
-  listen('click', root, delegate(applyEmoji, '.js-clickable-emoji'));
+  listenClicks(root, delegate(applyEmoji, '.js-clickable-emoji'));
+
+
+
+  listen('keyup', root, delegate(onQueryChange, 'input[name="emoji-filter"]'));
+
+  listenClicks(root, delegate(resetQueryField, '.js-clear-input-btn'));
+
+
 
 
   button.before(root);
