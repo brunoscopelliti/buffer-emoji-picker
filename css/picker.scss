@@ -1,4 +1,5 @@
 
+
 .chrome-ext-emoji-picker {
   background-color: #fff;
   border: 1px solid #CCC;
@@ -15,13 +16,31 @@
   position: absolute;
   z-index: 99;
 
+
+  a {
+    text-decoration: none !important;
+  }
+
   button.contextual-btn {
     background: transparent;
     border: 0;
     cursor: pointer;
     margin: 0;
     padding: 0;
+    &:focus,
+    &:active {
+      outline: -webkit-focus-ring-color auto 5px;
+    }
   }
+
+  .is-hidden {
+    display: none !important;
+  }
+
+
+  /****
+   * Query field box
+   */
 
   .search-box {
     box-sizing: border-box;
@@ -39,10 +58,18 @@
     height: 26px !important;
     padding: 2px !important;
     width: 100%;
+    &:focus,
+    &:active {
+      outline: -webkit-focus-ring-color auto 5px;
+    }
   }
   .search-box button.clear-input-btn {
     position: absolute;
-    top: 2px; right: 0;
+    top: 1px; right: 2px;
+
+    height: 24px;
+    width: 24px;
+    overflow: hidden;
   }
 
 
@@ -50,9 +77,7 @@
 
   /* Draft... */
 
-  a {
-    text-decoration: none;
-  }
+
 
   .emoji-categories-list {
 
@@ -123,21 +148,26 @@
 
   .emoji-shelf-title {
     border-bottom: 1px solid #CCC;
-    font-size: 16px;
+    font-size: 15px;
     margin: 0 0 6px;
-    padding: 0 2px 4px;
+    padding: 0 8px;
   }
 
   #latest-emoji-shelf-section .emoji-shelf-title {
     display: flex;
     justify-content: space-between;
+    overflow: visible;
+  }
+
+  #latest-emoji-shelf-section .no-emojis {
+    font-size: 14px;
   }
 
 
 
 
-
   .emojis {
+    font-size: 0;
     line-height: 34px;
     padding-left: 8px;
   }
@@ -153,8 +183,6 @@
   .emoji:hover {
     outline: -webkit-focus-ring-color auto 5px;
   }
-  .is-hidden {
-    display: none !important;
-  }
+
 
 }

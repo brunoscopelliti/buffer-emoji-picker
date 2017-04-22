@@ -8,6 +8,14 @@ import {
   editorInputSelector
 } from 'selectors';
 
+import tokenize from 'utils/tokenize';
+
+import {
+  storeEmoji,
+  readRecentlyUsedEmojis,
+  clearHistory
+} from 'picker/history';
+
 import {
   onQueryChange,
   resetQueryField
@@ -15,7 +23,33 @@ import {
 
 
 
+
 const listenClicks = listen.bind(null, 'click');
+
+
+const updateRecentlyUsedEmojis = (root) => {
+  const latestEmojis = readRecentlyUsedEmojis();
+
+  const hasRecentlyUsedEmojis = latestEmojis.length > 0;
+
+  root.querySelector('.js-clear-latest-btn').classList.toggle('is-hidden', !hasRecentlyUsedEmojis);
+
+  root.querySelector('.js-latest-target').innerHTML = hasRecentlyUsedEmojis ?
+    latestEmojis
+      .map(({ emoji, name }) => `<a class='emoji js-clickable-emoji' href='#${tokenize(name)}-emoji' title='${name}'>${emoji}</a>`)
+      .join('') :
+    '<span class="no-emojis">Nothing yet.</span>';
+}
+
+const clearHistoryAndUpdateView = (event) => {
+  clearHistory();
+  updateRecentlyUsedEmojis(event.currentTarget);
+};
+
+const storeEmojiAndUpdateView = (emoji, root) => {
+  storeEmoji(emoji);
+  updateRecentlyUsedEmojis(root);
+};
 
 /**
  * @name setupEmojiPicker
@@ -24,8 +58,9 @@ const listenClicks = listen.bind(null, 'click');
  */
 const setupEmojiPicker = (root, button) => {
 
+  updateRecentlyUsedEmojis(root);
 
-
+  listenClicks(root, delegate(clearHistoryAndUpdateView, '.js-clear-latest-btn'));
 
 
   // That's mostly an advanced POC
@@ -54,7 +89,8 @@ const applyEmoji = (event) => {
   const box = event.currentTarget.closest(genericWritingAreaSelector);
   const textarea = box.querySelector(editorInputSelector);
   const emoji = event.target.textContent.trim();
-  updateValue(textarea, emoji)
+  updateValue(textarea, emoji);
+  storeEmojiAndUpdateView({ emoji: emoji, name: event.target.title }, event.currentTarget);
 };
 
 const updateValue = (input, emoji) => {

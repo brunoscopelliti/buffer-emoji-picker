@@ -153,7 +153,8 @@
        "emoji": "✊"
     }, {
        "name": "metal", 
-       "emoji": "🤘"
+       "emoji": "🤘",
+       "skip": true
     }, {
        "name": "win", 
        "emoji": "✌️"
@@ -227,7 +228,8 @@
        "emoji": "🐨"
     }, {
        "name": "lion", 
-       "emoji": "🦁"
+       "emoji": "🦁",
+       "skip": true
     }, {
        "name": "monkey", 
        "emoji": "🐵"
@@ -413,15 +415,8 @@
        "name": "basket ball", 
        "emoji": "🏀"
     }, {
-       "name": "rugby", 
-       "emoji": "🏈"
-    }, {
-      "name": "soccer ball",
-      "emoji": "⚽️",
-      "featured": true
-    }, {
-       "name": "tennis", 
-       "emoji": "🎾"
+       "name": "bike", 
+       "emoji": "🚴"
     }, {
        "name": "bowling", 
        "emoji": "🎳"
@@ -429,142 +424,106 @@
        "name": "dart", 
        "emoji": "🎯"
     }, {
-       "name": "8balls", 
-       "emoji": "🎱"
-    }, {
-       "name": "bike", 
-       "emoji": "🚴"
-    }, {
-       "name": "rowboat", 
-       "emoji": "🚣"
-    }, {
-       "name": "showboarder", 
-       "emoji": "🏂"
-    }, {
-       "name": "surfing", 
-       "emoji": "🏄"
-    }, {
        "name": "golf", 
        "emoji": "⛳️"
     }, {
        "name": "horse racing", 
        "emoji": "🏇"
     }, {
+       "name": "rowboat", 
+       "emoji": "🚣"
+    }, {
+       "name": "rugby", 
+       "emoji": "🏈"
+    }, {
        "name": "run", 
        "emoji": "🏃"
+    }, {
+       "name": "ski", 
+       "emoji": "🎿"
+    }, {
+       "name": "snowboarder", 
+       "emoji": "🏂"
+    }, {
+      "name": "soccer ball",
+      "emoji": "⚽️",
+      "featured": true
+    }, {
+       "name": "surfing", 
+       "emoji": "🏄"
     }, {
        "name": "swimming", 
        "emoji": "🏊"
     }, {
-       "name": "ski", 
-       "emoji": "🎿"
-    }
+       "name": "tennis", 
+       "emoji": "🎾"
+    }, {
+       "name": "8balls", 
+       "emoji": "🎱"
+    } 
   ],
   "Objects": [
     {
       "name": "balloon",
       "emoji": "🎈"
-    },
-    {
+    }, {
+      "name": "lollipop",
+      "emoji": "🍭"
+    }, {
       "name": "dice",
       "emoji": "🎲"
-    },
-    {
-      "name": "rocket",
-      "emoji": "🚀"
-    },
-    {
+    }, {
+      "name": "checkered flag",
+      "emoji": "🏁"
+    }, {
       "name": "videogame",
       "emoji": "🎮"
-    },
-    {
+    }, {
       "name": "art",
       "emoji": "🎨"
-    },
-    {
+    }, {
       "name": "alarm clock",
       "emoji": "⏰"
-    },
-    {
+    }, {
       "name": "gift",
       "emoji": "🎁"
-    },
-    {
-      "name": "eye glass",
-      "emoji": "👓"
-    },
-    {
+    }, {
       "name": "shell",
       "emoji": "🐚"
-    },
-    {
+    }, {
+      "name": "wrench",
+      "emoji": "🔧"
+    }, {
       "name": "bulb",
       "emoji": "💡",
       "featured": true
-    },
-    {
+    }, {
+      "name": "rocket",
+      "emoji": "🚀"
+    }, {
       "name": "bell",
       "emoji": "🔔"
-    },
-    {
-      "name": "crystal ball",
-      "emoji": "🔮"
-    },
-    {
-      "name": "pill",
-      "emoji": "💊"
-    },
-    {
-      "name": "telephone",
-      "emoji": "☎️"
-    },
-    {
-      "name": "wrench",
-      "emoji": "🔧"
-    },
-    {
-      "name": "checkered flag",
-      "emoji": "🏁"
-    },
-    {
-      "name": "clapper",
-      "emoji": "🎬"
-    },
-    {
+    }, {
       "name": "trophy",
       "emoji": "🏆"
-    },
-    {
+    }, {
       "name": "ring",
       "emoji": "💍"
-    },
-    {
+    }, {
       "name": "crown",
       "emoji": "👑"
-    },
-    {
+    }, {
       "name": "diamond",
       "emoji": "💎"
-    },
-    {
+    }, {
       "name": "tulip",
       "emoji": "🌷"
-    },
-    {
-      "name": "floppy",
-      "emoji": "💾"
-    },
-    {
+    }, {
       "name": "bomb",
       "emoji": "💣"
-    },
-    {
-      "name": "lipstick",
-      "emoji": "💄"
-    },
-    {
-      "name": "lollipop",
-      "emoji": "🍭"
+    }, {
+      "name": "crystal ball",
+      "emoji": "🔮"
     }
   ],
   "Symbols": [

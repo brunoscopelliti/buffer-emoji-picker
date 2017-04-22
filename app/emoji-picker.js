@@ -141,7 +141,7 @@ const injectTemplate = async (path, templateId) => {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0____ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0____ = __webpack_require__(6);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__selectors__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_selectors__ = __webpack_require__(0);
 
@@ -298,10 +298,84 @@ __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2_inject_template__["a" /* defau
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_delegate_handler__ = __webpack_require__(7);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_listen_events__ = __webpack_require__(8);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return readRecentlyUsedEmojis; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return storeEmoji; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return clearHistory; });
+
+/**
+ * Limits the number of recent entries
+ * in local storage.
+ */
+const limit = 12;
+
+
+/**
+ * Retrieves the list of the latest used emojis.
+ * @name readRecentlyUsedEmojis
+ * @returns {Array}
+ */
+const readRecentlyUsedEmojis = () => {
+  const storage = localStorage.getItem('BEP_latest-emoji');
+  return storage != null ? JSON.parse(storage) : [];
+};
+
+
+
+
+
+/**
+ * Memorize the `emoji` it receives as input parameter
+ * in the localstorage.
+ * The key is `BEP_latest-emoji`.
+ * @name storeEmoji
+ * @param {Object} emoji 
+ */
+const storeEmoji = (emoji) => {
+  const storage = localStorage.getItem('BEP_latest-emoji');
+  const list = storage != null ? JSON.parse(storage) : [];
+
+  const index = list.findIndex(x => x.name == emoji.name);
+
+  if (index >= 0){
+    list.splice(index, 1);
+  }
+
+  list.unshift(emoji);
+
+  const latest = list.slice(0, limit);
+
+  localStorage.setItem('BEP_latest-emoji', JSON.stringify(latest));
+};
+
+
+
+
+
+/**
+ * Delete data about used emoji from local storage.
+ * @name clearHistory
+ */
+const clearHistory = () => localStorage.removeItem('BEP_latest-emoji');
+
+
+
+
+/***/ }),
+/* 6 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_delegate_handler__ = __webpack_require__(13);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_listen_events__ = __webpack_require__(14);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_selectors__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_picker_query_box__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_utils_tokenize__ = __webpack_require__(12);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_picker_history__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_picker_query_box__ = __webpack_require__(7);
+
+
+
+
+
 
 
 
@@ -315,6 +389,31 @@ __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2_inject_template__["a" /* defau
 
 const listenClicks = __WEBPACK_IMPORTED_MODULE_1_listen_events__["a" /* default */].bind(null, 'click');
 
+
+const updateRecentlyUsedEmojis = (root) => {
+  const latestEmojis = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4_picker_history__["a" /* readRecentlyUsedEmojis */])();
+
+  const hasRecentlyUsedEmojis = latestEmojis.length > 0;
+
+  root.querySelector('.js-clear-latest-btn').classList.toggle('is-hidden', !hasRecentlyUsedEmojis);
+
+  root.querySelector('.js-latest-target').innerHTML = hasRecentlyUsedEmojis ?
+    latestEmojis
+      .map(({ emoji, name }) => `<a class='emoji js-clickable-emoji' href='#${__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3_utils_tokenize__["a" /* default */])(name)}-emoji' title='${name}'>${emoji}</a>`)
+      .join('') :
+    '<span class="no-emojis">Nothing yet.</span>';
+}
+
+const clearHistoryAndUpdateView = (event) => {
+  __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4_picker_history__["b" /* clearHistory */])();
+  updateRecentlyUsedEmojis(event.currentTarget);
+};
+
+const storeEmojiAndUpdateView = (emoji, root) => {
+  __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4_picker_history__["c" /* storeEmoji */])(emoji);
+  updateRecentlyUsedEmojis(root);
+};
+
 /**
  * @name setupEmojiPicker
  * @param {HTMLElement} root 
@@ -322,8 +421,11 @@ const listenClicks = __WEBPACK_IMPORTED_MODULE_1_listen_events__["a" /* default 
  */
 const setupEmojiPicker = (root, button) => {
 
+  updateRecentlyUsedEmojis(root);
 
-
+  // TODO empty .js-latest-target
+  // TODO clear button should be visible only when history is not empty
+  listenClicks(root, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_delegate_handler__["a" /* default */])(clearHistoryAndUpdateView, '.js-clear-latest-btn'));
 
 
   // That's mostly an advanced POC
@@ -332,9 +434,9 @@ const setupEmojiPicker = (root, button) => {
 
 
 
-  __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1_listen_events__["a" /* default */])('keyup', root, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_delegate_handler__["a" /* default */])(__WEBPACK_IMPORTED_MODULE_3_picker_query_box__["a" /* onQueryChange */], 'input[name="emoji-filter"]'));
+  __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1_listen_events__["a" /* default */])('keyup', root, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_delegate_handler__["a" /* default */])(__WEBPACK_IMPORTED_MODULE_5_picker_query_box__["a" /* onQueryChange */], 'input[name="emoji-filter"]'));
 
-  listenClicks(root, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_delegate_handler__["a" /* default */])(__WEBPACK_IMPORTED_MODULE_3_picker_query_box__["b" /* resetQueryField */], '.js-clear-input-btn'));
+  listenClicks(root, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_delegate_handler__["a" /* default */])(__WEBPACK_IMPORTED_MODULE_5_picker_query_box__["b" /* resetQueryField */], '.js-clear-input-btn'));
 
 
 
@@ -352,7 +454,8 @@ const applyEmoji = (event) => {
   const box = event.currentTarget.closest(__WEBPACK_IMPORTED_MODULE_2_selectors__["d" /* genericWritingAreaSelector */]);
   const textarea = box.querySelector(__WEBPACK_IMPORTED_MODULE_2_selectors__["e" /* editorInputSelector */]);
   const emoji = event.target.textContent.trim();
-  updateValue(textarea, emoji)
+  updateValue(textarea, emoji);
+  storeEmojiAndUpdateView({ emoji: emoji, name: event.target.title }, event.currentTarget);
 };
 
 const updateValue = (input, emoji) => {
@@ -369,7 +472,7 @@ const focus = (input) =>
 
 
 /***/ }),
-/* 6 */
+/* 7 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -456,7 +559,80 @@ const resetQueryField = (event) => {
 
 
 /***/ }),
-/* 7 */
+/* 8 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+
+const collapseWhiteSpaces = (str) => str.replace(/\s+/g, '-');
+
+/* harmony default export */ __webpack_exports__["a"] = (collapseWhiteSpaces);
+
+
+/***/ }),
+/* 9 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+
+const compose =
+  (...fns) => 
+    (result) => {
+      let list = fns.slice();
+      while (list.length > 0) {
+        result = list.pop()( result );
+      }
+      return result;
+    };
+
+/* harmony default export */ __webpack_exports__["a"] = (compose);
+
+
+/***/ }),
+/* 10 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+
+const lowercase = (str) => str.toLowerCase();
+
+/* harmony default export */ __webpack_exports__["a"] = (lowercase);
+
+
+/***/ }),
+/* 11 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+
+const stripSymbols = (str) => str.replace(/[&]/g, '');
+
+/* harmony default export */ __webpack_exports__["a"] = (stripSymbols);
+
+
+/***/ }),
+/* 12 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_utils_compose__ = __webpack_require__(9);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_utils_lowercase__ = __webpack_require__(10);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_utils_collapse_white_spaces__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_utils_strip_symbols__ = __webpack_require__(11);
+
+
+
+
+
+
+
+const tokenize = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_utils_compose__["a" /* default */])(__WEBPACK_IMPORTED_MODULE_1_utils_lowercase__["a" /* default */], __WEBPACK_IMPORTED_MODULE_2_utils_collapse_white_spaces__["a" /* default */], __WEBPACK_IMPORTED_MODULE_3_utils_strip_symbols__["a" /* default */]);
+
+/* harmony default export */ __webpack_exports__["a"] = (tokenize);
+
+
+/***/ }),
+/* 13 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -501,7 +677,7 @@ const matches = (target, selector, boundElement) => {
 
 
 /***/ }),
-/* 8 */
+/* 14 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
