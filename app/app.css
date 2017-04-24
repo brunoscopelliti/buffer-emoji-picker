@@ -13,7 +13,7 @@
 
 .chrome-ext-emoji-picker {
   background-color: #fff;
-  border: 1px solid #CCC;
+  border: 1px solid #ced7df;
   border-radius: 1px;
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
   box-sizing: border-box;
@@ -23,6 +23,9 @@
   font-family: 'Open Sans', Helvetica, Arial, sans-serif;
   position: absolute;
   z-index: 99;
+  /****
+   * Side navigation index
+   */
   /****
    * Query field box
    */
@@ -39,6 +42,33 @@
       outline: -webkit-focus-ring-color auto 5px; }
   .chrome-ext-emoji-picker .is-hidden {
     display: none !important; }
+  .chrome-ext-emoji-picker .emoji-categories-list {
+    border-right: 1px solid #ced7df;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+    list-style: none;
+    margin: 0;
+    padding: 0; }
+  .chrome-ext-emoji-picker .emoji-categories-list li {
+    box-sizing: border-box;
+    font-size: 32px;
+    height: 40px;
+    line-height: 40px;
+    position: relative;
+    text-align: center;
+    width: 40px; }
+  .chrome-ext-emoji-picker .emoji-category {
+    display: block;
+    filter: grayscale(1);
+    opacity: .8;
+    overflow: hidden;
+    height: 100%;
+    width: 100%; }
+    .chrome-ext-emoji-picker .emoji-category:hover, .chrome-ext-emoji-picker .emoji-category:focus, .chrome-ext-emoji-picker .emoji-category.is-selected {
+      filter: none;
+      opacity: 1; }
   .chrome-ext-emoji-picker .search-box {
     box-sizing: border-box;
     background: #f7f9fb;
@@ -62,35 +92,6 @@
     height: 24px;
     width: 24px;
     overflow: hidden; }
-  .chrome-ext-emoji-picker .emoji-categories-list {
-    border-right: 1px solid #CCC;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    height: 100%;
-    list-style: none;
-    margin: 0;
-    padding: 0; }
-  .chrome-ext-emoji-picker .emoji-categories-list li {
-    box-sizing: border-box;
-    font-size: 32px;
-    height: 40px;
-    line-height: 40px;
-    position: relative;
-    text-align: center;
-    width: 40px; }
-  .chrome-ext-emoji-picker .emoji-category {
-    filter: grayscale(1);
-    opacity: .8; }
-  .chrome-ext-emoji-picker .emoji-category:hover,
-  .chrome-ext-emoji-picker .emoji-category:focus,
-  .chrome-ext-emoji-picker .emoji-category.is-selected {
-    filter: none;
-    opacity: 1; }
-  .chrome-ext-emoji-picker .emoji-category {
-    display: block;
-    height: 100%;
-    width: 100%; }
   .chrome-ext-emoji-picker .emoji-box {
     display: flex;
     flex-direction: column;
@@ -102,10 +103,8 @@
     box-sizing: border-box;
     margin: 10px 0;
     padding: 5px 0px; }
-  .chrome-ext-emoji-picker .search-box + .emoji-shelf-section {
-    /*margin-top: 60px;*/ }
   .chrome-ext-emoji-picker .emoji-shelf-title {
-    border-bottom: 1px solid #CCC;
+    border-bottom: 1px solid #ced7df;
     font-size: 15px;
     margin: 0 0 6px;
     padding: 0 8px; }
@@ -123,6 +122,7 @@
     box-sizing: border-box;
     display: inline-block;
     font-size: 24px;
+    overflow: hidden;
     padding: 2px;
     text-align: center;
     width: 28px; }

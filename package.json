@@ -27,6 +27,7 @@
   "dependencies": {
     "delegate-handler": "1.0.0",
     "listen-events": "0.1.0",
+    "lodash.debounce": "4.0.8",
     "webpack": "2.3.3"
   },
   "devDependencies": {
