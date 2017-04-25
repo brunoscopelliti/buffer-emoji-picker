@@ -67,7 +67,7 @@ const tryInjectButton = (pivotEl) => {
  * Setup mutations observers
  */
 
-const editorObserver = new MutationObserver(mutations => {
+const editorObserver = new MutationObserver((mutations) => {
   const target = mutations[0].target;
   const pivotEl = target.querySelector(uploaderButtonSelector);
   tryInjectButton(pivotEl);
@@ -77,7 +77,7 @@ editorObserver.observe(document.querySelector(writingAreaSelector) || document.b
 
 
 
-const layerObserver = new MutationObserver(mutations => {
+const layerObserver = new MutationObserver(() => {
   const layer = document.getElementsByClassName(dialogLayerClassName)[0];
   if (layer == null){
     return;

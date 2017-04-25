@@ -71,6 +71,24 @@
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return pickerButtonClassName; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return pickerButtonSelector; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return pickerTemplateId; });
+/* unused harmony export pickerTemplateSelector */
+
+const pickerButtonClassName = 'chrome-ext-emoji-picker-button';
+const pickerButtonSelector = '.' + pickerButtonClassName;
+
+const pickerTemplateId = 'chrome-ext-emoji-picker-template';
+const pickerTemplateSelector = '#' + pickerTemplateId;
+
+
+
+/***/ }),
+/* 1 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return writingAreaSelector; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return genericWritingAreaSelector; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return editorInputSelector; });
@@ -87,24 +105,6 @@ const uploaderButtonSelector = '#media-uploader';
 const dialogLayerClassName = 'ui-dialog';
 
 
-
-
-
-/***/ }),
-/* 1 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return pickerButtonClassName; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return pickerButtonSelector; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return pickerTemplateId; });
-/* unused harmony export pickerTemplateSelector */
-
-const pickerButtonClassName = 'chrome-ext-emoji-picker-button';
-const pickerButtonSelector = '.' + pickerButtonClassName;
-
-const pickerTemplateId = 'chrome-ext-emoji-picker-template';
-const pickerTemplateSelector = '#' + pickerTemplateId;
 
 
 
@@ -186,10 +186,7 @@ const injectTemplate = async (path, templateId) => {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_picker___ = __webpack_require__(8);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_picker_selectors__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_selectors__ = __webpack_require__(0);
-
-
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_picker_selectors__ = __webpack_require__(0);
 
 
 
@@ -233,10 +230,10 @@ const createButton = () => {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_selectors__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_selectors__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_picker_button__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_inject_template__ = __webpack_require__(3);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_picker_selectors__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_picker_selectors__ = __webpack_require__(0);
 
 
 
@@ -302,7 +299,7 @@ const tryInjectButton = (pivotEl) => {
  * Setup mutations observers
  */
 
-const editorObserver = new MutationObserver(mutations => {
+const editorObserver = new MutationObserver((mutations) => {
   const target = mutations[0].target;
   const pivotEl = target.querySelector(__WEBPACK_IMPORTED_MODULE_0_selectors__["a" /* uploaderButtonSelector */]);
   tryInjectButton(pivotEl);
@@ -312,7 +309,7 @@ editorObserver.observe(document.querySelector(__WEBPACK_IMPORTED_MODULE_0_select
 
 
 
-const layerObserver = new MutationObserver(mutations => {
+const layerObserver = new MutationObserver(() => {
   const layer = document.getElementsByClassName(__WEBPACK_IMPORTED_MODULE_0_selectors__["c" /* dialogLayerClassName */])[0];
   if (layer == null){
     return;
@@ -486,7 +483,7 @@ const clearHistory = () => localStorage.removeItem('BEP_latest-emoji');
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_delegate_handler__ = __webpack_require__(17);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_listen_events__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_selectors__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_selectors__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_picker_history___ = __webpack_require__(6);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_picker_query_box__ = __webpack_require__(9);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_picker_scroll__ = __webpack_require__(10);

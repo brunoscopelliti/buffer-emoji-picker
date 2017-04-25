@@ -3,8 +3,6 @@ import setupEmojiPicker from 'picker/';
 
 import { pickerButtonClassName, pickerTemplateId } from 'picker/selectors';
 
-import { editorInputSelector } from 'selectors';
-
 /**
  * @name deepClone
  * @private
