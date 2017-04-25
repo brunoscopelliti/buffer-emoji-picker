@@ -3,6 +3,8 @@ import delegate from 'delegate-handler';
 
 import listen from 'listen-events';
 
+const listenClicks = listen.bind(null, 'click');
+
 import {
   genericWritingAreaSelector,
   editorInputSelector
@@ -24,10 +26,7 @@ import {
   scrollTo
 } from 'picker/scroll';
 
-
-const listenClicks = listen.bind(null, 'click');
-
-
+import updateValue from 'picker/textarea';
 
 
 /**
@@ -37,36 +36,18 @@ const listenClicks = listen.bind(null, 'click');
  */
 const setupEmojiPicker = (root, button) => {
 
-  /**
-   * Setup recently used emojis
-   */
-
   updateRecentlyUsedEmojis(root);
 
   listenClicks(root, delegate(clearHistoryAndUpdateView, '.js-clear-latest-btn'));
-
-
-  /**
-   * Setup search box
-   */
 
   listen('keyup', root, delegate(onQueryChange, 'input[name="emoji-filter"]'));
 
   listenClicks(root, delegate(resetQueryField, '.js-clear-input-btn'));
 
-
-  /**
-   * Setup selection on scroll
-   */
-
   listenScroll(root);
 
   listenClicks(root, delegate(scrollTo, '.js-selectable-category'));
 
-
-  /**
-   * Setup emoji selection
-   */
 
   const applyEmoji = (event) => {
     const box = event.currentTarget.closest(genericWritingAreaSelector);
@@ -82,11 +63,6 @@ const setupEmojiPicker = (root, button) => {
   listenClicks(root, delegate(applyEmoji, '.js-clickable-emoji'));
 
 
-
-  /**
-   * Handle click outside picker
-   */
-
   const tryDestroyPicker = (event) => {
     if (isClickOnPicker(event.target)){
       return event.stopPropagation();
@@ -99,6 +75,8 @@ const setupEmojiPicker = (root, button) => {
   /**
    * @name isClickOnPicker
    * @param {HTMLElement} element 
+   * 
+   * @returns {Boolean}
    */
   const isClickOnPicker = (element) =>
     element.matches('.chrome-ext-emoji-picker') || (element == document.body ? false : isClickOnPicker(element.parentElement));
@@ -112,30 +90,7 @@ const setupEmojiPicker = (root, button) => {
   };
 
 
-
   button.before(root);
 };
 
 export default setupEmojiPicker;
-
-
-
-
-
-
-
-
-
-
-
-const updateValue = (input, emoji) => {
-  input.value = format(input.value, input.selectionStart, emoji);
-  input.dispatchEvent(new Event('keyup', { bubbles: true, cancelable: true }));
-  focus(input);
-};
-
-const format = (str, insertAt, emoji) =>
-  str.substring(0, insertAt) + emoji + str.substring(insertAt);
-
-const focus = (input) =>
-  setTimeout(() => input.focus(), 100);

@@ -14,6 +14,10 @@ import { editorInputSelector } from 'selectors';
 const deepClone = (node) => node.cloneNode(true);
 
 
+/**
+ * Create the button that permits to open the emoji picker.
+ * @name createButton
+ */
 const createButton = () => {
   const button = document.createElement('button');
   button.className = pickerButtonClassName;

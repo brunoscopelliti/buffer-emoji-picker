@@ -204,6 +204,10 @@ const injectTemplate = async (path, templateId) => {
 const deepClone = (node) => node.cloneNode(true);
 
 
+/**
+ * Create the button that permits to open the emoji picker.
+ * @name createButton
+ */
 const createButton = () => {
   const button = document.createElement('button');
   button.className = __WEBPACK_IMPORTED_MODULE_1_picker_selectors__["c" /* pickerButtonClassName */];
@@ -340,7 +344,7 @@ __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2_inject_template__["a" /* defau
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_picker_history_storage__ = __webpack_require__(7);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_utils_tokenize__ = __webpack_require__(15);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_utils_tokenize__ = __webpack_require__(16);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return updateRecentlyUsedEmojis; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return clearHistoryAndUpdateView; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return storeEmojiAndUpdateView; });
@@ -480,27 +484,27 @@ const clearHistory = () => localStorage.removeItem('BEP_latest-emoji');
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_delegate_handler__ = __webpack_require__(16);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_delegate_handler__ = __webpack_require__(17);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_listen_events__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_selectors__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_picker_history___ = __webpack_require__(6);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_picker_query_box__ = __webpack_require__(9);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_picker_scroll__ = __webpack_require__(10);
-
-
-
-
-
-
-
-
-
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_picker_textarea__ = __webpack_require__(11);
 
 
 
 
 
 const listenClicks = __WEBPACK_IMPORTED_MODULE_1_listen_events__["a" /* default */].bind(null, 'click');
+
+
+
+
+
+
+
+
 
 
 
@@ -512,42 +516,24 @@ const listenClicks = __WEBPACK_IMPORTED_MODULE_1_listen_events__["a" /* default 
  */
 const setupEmojiPicker = (root, button) => {
 
-  /**
-   * Setup recently used emojis
-   */
-
   __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3_picker_history___["a" /* updateRecentlyUsedEmojis */])(root);
 
   listenClicks(root, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_delegate_handler__["a" /* default */])(__WEBPACK_IMPORTED_MODULE_3_picker_history___["b" /* clearHistoryAndUpdateView */], '.js-clear-latest-btn'));
 
-
-  /**
-   * Setup search box
-   */
-
   __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1_listen_events__["a" /* default */])('keyup', root, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_delegate_handler__["a" /* default */])(__WEBPACK_IMPORTED_MODULE_4_picker_query_box__["a" /* onQueryChange */], 'input[name="emoji-filter"]'));
 
   listenClicks(root, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_delegate_handler__["a" /* default */])(__WEBPACK_IMPORTED_MODULE_4_picker_query_box__["b" /* resetQueryField */], '.js-clear-input-btn'));
-
-
-  /**
-   * Setup selection on scroll
-   */
 
   __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_5_picker_scroll__["a" /* listenScroll */])(root);
 
   listenClicks(root, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_delegate_handler__["a" /* default */])(__WEBPACK_IMPORTED_MODULE_5_picker_scroll__["b" /* scrollTo */], '.js-selectable-category'));
 
 
-  /**
-   * Setup emoji selection
-   */
-
   const applyEmoji = (event) => {
     const box = event.currentTarget.closest(__WEBPACK_IMPORTED_MODULE_2_selectors__["d" /* genericWritingAreaSelector */]);
     const textarea = box.querySelector(__WEBPACK_IMPORTED_MODULE_2_selectors__["e" /* editorInputSelector */]);
     const emoji = event.target.textContent.trim();
-    updateValue(textarea, emoji);
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_6_picker_textarea__["a" /* default */])(textarea, emoji);
     __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3_picker_history___["c" /* storeEmojiAndUpdateView */])({ emoji: emoji, name: event.target.title }, event.currentTarget);
     destroyPicker();
     event.preventDefault();
@@ -556,11 +542,6 @@ const setupEmojiPicker = (root, button) => {
 
   listenClicks(root, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_delegate_handler__["a" /* default */])(applyEmoji, '.js-clickable-emoji'));
 
-
-
-  /**
-   * Handle click outside picker
-   */
 
   const tryDestroyPicker = (event) => {
     if (isClickOnPicker(event.target)){
@@ -574,6 +555,8 @@ const setupEmojiPicker = (root, button) => {
   /**
    * @name isClickOnPicker
    * @param {HTMLElement} element 
+   * 
+   * @returns {Boolean}
    */
   const isClickOnPicker = (element) =>
     element.matches('.chrome-ext-emoji-picker') || (element == document.body ? false : isClickOnPicker(element.parentElement));
@@ -587,33 +570,10 @@ const setupEmojiPicker = (root, button) => {
   };
 
 
-
   button.before(root);
 };
 
 /* harmony default export */ __webpack_exports__["a"] = (setupEmojiPicker);
-
-
-
-
-
-
-
-
-
-
-
-const updateValue = (input, emoji) => {
-  input.value = format(input.value, input.selectionStart, emoji);
-  input.dispatchEvent(new Event('keyup', { bubbles: true, cancelable: true }));
-  focus(input);
-};
-
-const format = (str, insertAt, emoji) =>
-  str.substring(0, insertAt) + emoji + str.substring(insertAt);
-
-const focus = (input) =>
-  setTimeout(() => input.focus(), 100);
 
 
 /***/ }),
@@ -709,7 +669,7 @@ const resetQueryField = (event) => {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_listen_events__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_lodash__ = __webpack_require__(17);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_lodash__ = __webpack_require__(18);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_lodash___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_lodash__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return listenScroll; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return scrollTo; });
@@ -816,9 +776,40 @@ const scrollTo = (event) => {
 
 "use strict";
 
-const collapseWhiteSpaces = (str) => str.replace(/\s+/g, '-');
+/**
+ * Update the value of the input parameter.
+ * @name updateValue
+ * @param {HTMLElement} input 
+ * @param {String} emoji 
+ */
+const updateValue = (input, emoji) => {
+  input.value = format(input.value, input.selectionStart, emoji);
+  input.dispatchEvent(new Event('keyup', { bubbles: true, cancelable: true }));
+  focus(input);
+};
 
-/* harmony default export */ __webpack_exports__["a"] = (collapseWhiteSpaces);
+/* harmony default export */ __webpack_exports__["a"] = (updateValue);
+
+
+/**
+ * Add the `emoji` in the input `str`.
+ * @name format
+ * @param {String} str 
+ * @param {Number} insertAt 
+ * @param {String} emoji 
+ * 
+ * @returns {String}
+ */
+const format = (str, insertAt, emoji) =>
+  str.substring(0, insertAt) + emoji + str.substring(insertAt);
+
+/**
+ * Trigger focus on the `input` element.
+ * @name focus
+ * @param {HTMLElement} input 
+ */
+const focus = (input) =>
+  setTimeout(() => input.focus(), 100);
 
 
 /***/ }),
@@ -827,6 +818,31 @@ const collapseWhiteSpaces = (str) => str.replace(/\s+/g, '-');
 
 "use strict";
 
+/**
+ * Replaces spaces character in the given input string
+ * with a single dash.
+ * @name collapseWhiteSpaces
+ * @param {String} str 
+ * 
+ * @returns {String}
+ */
+const collapseWhiteSpaces = (str) => str.replace(/\s+/g, '-');
+
+/* harmony default export */ __webpack_exports__["a"] = (collapseWhiteSpaces);
+
+
+/***/ }),
+/* 13 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+
+/**
+ * @name compose
+ * @param {Function[]} fns 
+ * 
+ * @returns {Function}
+ */
 const compose =
   (...fns) => 
     (result) => {
@@ -841,25 +857,21 @@ const compose =
 
 
 /***/ }),
-/* 13 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-
-const lowercase = (str) => str.toLowerCase();
-
-/* harmony default export */ __webpack_exports__["a"] = (lowercase);
-
-
-/***/ }),
 /* 14 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 
-const stripSymbols = (str) => str.replace(/[&]/g, '');
+/**
+ * Make lowercase the input string.
+ * @name lowercase
+ * @param {String} str 
+ * 
+ * @returns {String}
+ */
+const lowercase = (str) => str.toLowerCase();
 
-/* harmony default export */ __webpack_exports__["a"] = (stripSymbols);
+/* harmony default export */ __webpack_exports__["a"] = (lowercase);
 
 
 /***/ }),
@@ -867,10 +879,29 @@ const stripSymbols = (str) => str.replace(/[&]/g, '');
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_utils_compose__ = __webpack_require__(12);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_utils_lowercase__ = __webpack_require__(13);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_utils_collapse_white_spaces__ = __webpack_require__(11);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_utils_strip_symbols__ = __webpack_require__(14);
+
+/**
+ * Removes symbols character in the given input string.
+ * Currently is only replaces "&".
+ * @name stripSymbols
+ * @param {String} str 
+ * 
+ * @returns {String}
+ */
+const stripSymbols = (str) => str.replace(/[&]/g, '');
+
+/* harmony default export */ __webpack_exports__["a"] = (stripSymbols);
+
+
+/***/ }),
+/* 16 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_utils_compose__ = __webpack_require__(13);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_utils_lowercase__ = __webpack_require__(14);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_utils_collapse_white_spaces__ = __webpack_require__(12);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_utils_strip_symbols__ = __webpack_require__(15);
 
 
 
@@ -878,13 +909,19 @@ const stripSymbols = (str) => str.replace(/[&]/g, '');
 
 
 
+/**
+ * @name tokenize
+ * @param {String} value
+ * 
+ * @returns {String}
+ */
 const tokenize = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_utils_compose__["a" /* default */])(__WEBPACK_IMPORTED_MODULE_1_utils_lowercase__["a" /* default */], __WEBPACK_IMPORTED_MODULE_2_utils_collapse_white_spaces__["a" /* default */], __WEBPACK_IMPORTED_MODULE_3_utils_strip_symbols__["a" /* default */]);
 
 /* harmony default export */ __webpack_exports__["a"] = (tokenize);
 
 
 /***/ }),
-/* 16 */
+/* 17 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -929,7 +966,7 @@ const matches = (target, selector, boundElement) => {
 
 
 /***/ }),
-/* 17 */
+/* 18 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global, module) {var __WEBPACK_AMD_DEFINE_RESULT__;/**
@@ -18018,10 +18055,10 @@ const matches = (target, selector, boundElement) => {
   }
 }.call(this));
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(18), __webpack_require__(19)(module)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(19), __webpack_require__(20)(module)))
 
 /***/ }),
-/* 18 */
+/* 19 */
 /***/ (function(module, exports) {
 
 var g;
@@ -18048,7 +18085,7 @@ module.exports = g;
 
 
 /***/ }),
-/* 19 */
+/* 20 */
 /***/ (function(module, exports) {
 
 module.exports = function(module) {

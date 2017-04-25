@@ -1,4 +1,10 @@
 
+/**
+ * @name compose
+ * @param {Function[]} fns 
+ * 
+ * @returns {Function}
+ */
 const compose =
   (...fns) => 
     (result) => {
