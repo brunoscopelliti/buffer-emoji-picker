@@ -14,7 +14,7 @@
 .chrome-ext-emoji-picker {
   background-color: #fff;
   border: 1px solid #ced7df;
-  border-radius: 1px;
+  border-radius: 3px;
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
   box-sizing: border-box;
   display: flex;
@@ -29,7 +29,9 @@
   /****
    * Query field box
    */
-  /* Draft... */ }
+  /****
+   * Emojis
+   */ }
   .chrome-ext-emoji-picker a {
     text-decoration: none !important; }
   .chrome-ext-emoji-picker button.contextual-btn {
@@ -126,5 +128,5 @@
     padding: 2px;
     text-align: center;
     width: 28px; }
-  .chrome-ext-emoji-picker .emoji:hover {
-    outline: -webkit-focus-ring-color auto 5px; }
+    .chrome-ext-emoji-picker .emoji:hover {
+      outline: -webkit-focus-ring-color auto 5px; }

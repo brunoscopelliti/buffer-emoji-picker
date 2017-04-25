@@ -1,13 +1,13 @@
 
-import setupEmojiPicker from './';
+import setupEmojiPicker from 'picker/';
 
-import { pickerButtonClassName, pickerTemplateId } from './selectors';
+import { pickerButtonClassName, pickerTemplateId } from 'picker/selectors';
 
 import { editorInputSelector } from 'selectors';
 
 /**
  * @name deepClone
- *
+ * @private
  * @param {Element} node
  * @returns {Element}
  */
@@ -24,13 +24,10 @@ const createButton = () => {
     const root = deepClone(pickerTemplate.content).firstElementChild;
 
     setupEmojiPicker(root, event.target);
+    event.stopPropagation();
   });
 
   return button;
 };
 
 export default createButton;
-
-
-
-

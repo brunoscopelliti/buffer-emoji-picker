@@ -4,7 +4,7 @@ $bufferBorderColor: #ced7df;
 .chrome-ext-emoji-picker {
   background-color: #fff;
   border: 1px solid $bufferBorderColor;
-  border-radius: 1px;
+  border-radius: 3px;
   box-shadow: 0 1px 1px rgba(0, 0, 0, .1);
 
   box-sizing: border-box;
@@ -112,13 +112,9 @@ $bufferBorderColor: #ced7df;
   }
 
 
-
-
-  /* Draft... */
-
-
-
-
+  /****
+   * Emojis
+   */
 
   .emoji-box {
     display: flex;
@@ -126,19 +122,15 @@ $bufferBorderColor: #ced7df;
     width: 217px;
   }
 
-
   .emoji-shelf {
     overflow-y: scroll;
     position: relative;
   }
-
   .emoji-shelf-section {
     box-sizing: border-box;
     margin: 10px 0;
     padding: 5px 0px;
   }
-
-
   .emoji-shelf-title {
     border-bottom: 1px solid $bufferBorderColor;
     font-size: 15px;
@@ -146,25 +138,22 @@ $bufferBorderColor: #ced7df;
     padding: 0 8px;
   }
 
-  #latest-emoji-shelf-section .emoji-shelf-title {
-    display: flex;
-    justify-content: space-between;
-    overflow: visible;
+  #latest-emoji-shelf-section{
+    .emoji-shelf-title {
+      display: flex;
+      justify-content: space-between;
+      overflow: visible;
+    }
+    .no-emojis {
+      font-size: 14px;
+    }
   }
-
-  #latest-emoji-shelf-section .no-emojis {
-    font-size: 14px;
-  }
-
-
-
 
   .emojis {
     font-size: 0;
     line-height: 34px;
     padding-left: 8px;
   }
-
   .emoji {
     box-sizing: border-box;
     display: inline-block;
@@ -173,10 +162,8 @@ $bufferBorderColor: #ced7df;
     padding: 2px;
     text-align: center;
     width: 28px;
+    &:hover {
+      outline: -webkit-focus-ring-color auto 5px;
+    }
   }
-  .emoji:hover {
-    outline: -webkit-focus-ring-color auto 5px;
-  }
-
-
 }

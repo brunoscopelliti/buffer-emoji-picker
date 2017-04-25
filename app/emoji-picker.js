@@ -185,8 +185,8 @@ const injectTemplate = async (path, templateId) => {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0____ = __webpack_require__(7);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__selectors__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_picker___ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_picker_selectors__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_selectors__ = __webpack_require__(0);
 
 
@@ -197,7 +197,7 @@ const injectTemplate = async (path, templateId) => {
 
 /**
  * @name deepClone
- *
+ * @private
  * @param {Element} node
  * @returns {Element}
  */
@@ -206,24 +206,21 @@ const deepClone = (node) => node.cloneNode(true);
 
 const createButton = () => {
   const button = document.createElement('button');
-  button.className = __WEBPACK_IMPORTED_MODULE_1__selectors__["c" /* pickerButtonClassName */];
+  button.className = __WEBPACK_IMPORTED_MODULE_1_picker_selectors__["c" /* pickerButtonClassName */];
   button.textContent = '😃';
 
   button.addEventListener('click', (event) => {
-    const pickerTemplate = document.getElementById(__WEBPACK_IMPORTED_MODULE_1__selectors__["b" /* pickerTemplateId */]);
+    const pickerTemplate = document.getElementById(__WEBPACK_IMPORTED_MODULE_1_picker_selectors__["b" /* pickerTemplateId */]);
     const root = deepClone(pickerTemplate.content).firstElementChild;
 
-    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0____["a" /* default */])(root, event.target);
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_picker___["a" /* default */])(root, event.target);
+    event.stopPropagation();
   });
 
   return button;
 };
 
 /* harmony default export */ __webpack_exports__["a"] = (createButton);
-
-
-
-
 
 
 /***/ }),
@@ -342,6 +339,80 @@ __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2_inject_template__["a" /* defau
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_picker_history_storage__ = __webpack_require__(7);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_utils_tokenize__ = __webpack_require__(15);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return updateRecentlyUsedEmojis; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return clearHistoryAndUpdateView; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return storeEmojiAndUpdateView; });
+
+
+
+
+
+/**
+ * It updates the view, so that it always the latest used emojis.
+ * @name updateRecentlyUsedEmojis
+ * @param {HTMLElement} root 
+ */
+const updateRecentlyUsedEmojis = (root) => {
+  const latestEmojis = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_picker_history_storage__["a" /* readRecentlyUsedEmojis */])();
+
+  const hasRecentlyUsedEmojis = latestEmojis.length > 0;
+
+  root.querySelector('.js-clear-latest-btn').classList.toggle('is-hidden', !hasRecentlyUsedEmojis);
+
+  root.querySelector('.js-latest-target').innerHTML = hasRecentlyUsedEmojis ?
+    latestEmojis
+      .map(({ emoji, name }) => `<a class='emoji js-clickable-emoji' href='#${__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1_utils_tokenize__["a" /* default */])(name)}-emoji' title='${name}'>${emoji}</a>`)
+      .join('') :
+    '<span class="no-emojis">Nothing yet.</span>';
+}
+
+
+
+
+/**
+ * Clear the history, and refresh the 'recent emoji' view,
+ * in the next free queue slot.
+ * @name deferUpdateRecentlyUsedEmojis
+ * @param {HTMLElement} root 
+ */
+const deferUpdateRecentlyUsedEmojis = (root) => setTimeout(updateRecentlyUsedEmojis, 0, root);
+
+
+/**
+ * Clear the history, and refresh the 'recent emoji' view.
+ * @name clearHistoryAndUpdateView
+ * @param {Event} event 
+ */
+const clearHistoryAndUpdateView = (event) => {
+  __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_picker_history_storage__["b" /* clearHistory */])();
+  deferUpdateRecentlyUsedEmojis(event.currentTarget);
+};
+
+
+
+
+/**
+ * Store a new emoji in the persisted history,
+ * and refresh the 'recent emoji' view.
+ * @name storeEmojiAndUpdateView
+ * @param {Object} emoji 
+ * @param {HTMLElement} root 
+ */
+const storeEmojiAndUpdateView = (emoji, root) => {
+  __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_picker_history_storage__["c" /* storeEmoji */])(emoji);
+  deferUpdateRecentlyUsedEmojis(root);
+};
+
+
+
+
+/***/ }),
+/* 7 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return readRecentlyUsedEmojis; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return storeEmoji; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return clearHistory; });
@@ -405,20 +476,16 @@ const clearHistory = () => localStorage.removeItem('BEP_latest-emoji');
 
 
 /***/ }),
-/* 7 */
+/* 8 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_delegate_handler__ = __webpack_require__(15);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_delegate_handler__ = __webpack_require__(16);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_listen_events__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_selectors__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_utils_tokenize__ = __webpack_require__(14);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_picker_history__ = __webpack_require__(6);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_picker_query_box__ = __webpack_require__(8);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_picker_scroll__ = __webpack_require__(9);
-
-
-
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_picker_history___ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_picker_query_box__ = __webpack_require__(9);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_picker_scroll__ = __webpack_require__(10);
 
 
 
@@ -445,28 +512,81 @@ const listenClicks = __WEBPACK_IMPORTED_MODULE_1_listen_events__["a" /* default 
  */
 const setupEmojiPicker = (root, button) => {
 
-  updateRecentlyUsedEmojis(root);
+  /**
+   * Setup recently used emojis
+   */
 
-  listenClicks(root, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_delegate_handler__["a" /* default */])(clearHistoryAndUpdateView, '.js-clear-latest-btn'));
+  __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3_picker_history___["a" /* updateRecentlyUsedEmojis */])(root);
+
+  listenClicks(root, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_delegate_handler__["a" /* default */])(__WEBPACK_IMPORTED_MODULE_3_picker_history___["b" /* clearHistoryAndUpdateView */], '.js-clear-latest-btn'));
 
 
-  __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1_listen_events__["a" /* default */])('keyup', root, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_delegate_handler__["a" /* default */])(__WEBPACK_IMPORTED_MODULE_5_picker_query_box__["a" /* onQueryChange */], 'input[name="emoji-filter"]'));
+  /**
+   * Setup search box
+   */
 
-  listenClicks(root, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_delegate_handler__["a" /* default */])(__WEBPACK_IMPORTED_MODULE_5_picker_query_box__["b" /* resetQueryField */], '.js-clear-input-btn'));
+  __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1_listen_events__["a" /* default */])('keyup', root, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_delegate_handler__["a" /* default */])(__WEBPACK_IMPORTED_MODULE_4_picker_query_box__["a" /* onQueryChange */], 'input[name="emoji-filter"]'));
+
+  listenClicks(root, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_delegate_handler__["a" /* default */])(__WEBPACK_IMPORTED_MODULE_4_picker_query_box__["b" /* resetQueryField */], '.js-clear-input-btn'));
 
 
-  // scrollable
+  /**
+   * Setup selection on scroll
+   */
 
-  __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_6_picker_scroll__["a" /* listenScroll */])(root);
+  __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_5_picker_scroll__["a" /* listenScroll */])(root);
 
-  listenClicks(root, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_delegate_handler__["a" /* default */])(__WEBPACK_IMPORTED_MODULE_6_picker_scroll__["b" /* scrollTo */], '.js-selectable-category'));
+  listenClicks(root, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_delegate_handler__["a" /* default */])(__WEBPACK_IMPORTED_MODULE_5_picker_scroll__["b" /* scrollTo */], '.js-selectable-category'));
 
+
+  /**
+   * Setup emoji selection
+   */
+
+  const applyEmoji = (event) => {
+    const box = event.currentTarget.closest(__WEBPACK_IMPORTED_MODULE_2_selectors__["d" /* genericWritingAreaSelector */]);
+    const textarea = box.querySelector(__WEBPACK_IMPORTED_MODULE_2_selectors__["e" /* editorInputSelector */]);
+    const emoji = event.target.textContent.trim();
+    updateValue(textarea, emoji);
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3_picker_history___["c" /* storeEmojiAndUpdateView */])({ emoji: emoji, name: event.target.title }, event.currentTarget);
+    destroyPicker();
+    event.preventDefault();
+    event.stopPropagation();
+  };
 
   listenClicks(root, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_delegate_handler__["a" /* default */])(applyEmoji, '.js-clickable-emoji'));
 
 
 
-  // TODO listen click on body, and remove picker
+  /**
+   * Handle click outside picker
+   */
+
+  const tryDestroyPicker = (event) => {
+    if (isClickOnPicker(event.target)){
+      return event.stopPropagation();
+    }
+    destroyPicker();
+  };
+
+  const stopListenClicksOnBody = listenClicks(document.body, tryDestroyPicker);
+
+  /**
+   * @name isClickOnPicker
+   * @param {HTMLElement} element 
+   */
+  const isClickOnPicker = (element) =>
+    element.matches('.chrome-ext-emoji-picker') || (element == document.body ? false : isClickOnPicker(element.parentElement));
+
+  /**
+   * @name destroyPicker
+   */
+  const destroyPicker = () => {
+    root.remove();
+    stopListenClicksOnBody();
+  };
+
+
 
   button.before(root);
 };
@@ -476,14 +596,12 @@ const setupEmojiPicker = (root, button) => {
 
 
 
-const applyEmoji = (event) => {
-  const box = event.currentTarget.closest(__WEBPACK_IMPORTED_MODULE_2_selectors__["d" /* genericWritingAreaSelector */]);
-  const textarea = box.querySelector(__WEBPACK_IMPORTED_MODULE_2_selectors__["e" /* editorInputSelector */]);
-  const emoji = event.target.textContent.trim();
-  updateValue(textarea, emoji);
-  storeEmojiAndUpdateView({ emoji: emoji, name: event.target.title }, event.currentTarget);
-  event.preventDefault();
-};
+
+
+
+
+
+
 
 const updateValue = (input, emoji) => {
   input.value = format(input.value, input.selectionStart, emoji);
@@ -498,55 +616,8 @@ const focus = (input) =>
   setTimeout(() => input.focus(), 100);
 
 
-
-
-
-
-
-/**
- * It updates the view, so that it always the latest used emojis.
- * @name updateRecentlyUsedEmojis
- * @param {HTMLElement} root 
- */
-const updateRecentlyUsedEmojis = (root) => {
-  const latestEmojis = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4_picker_history__["a" /* readRecentlyUsedEmojis */])();
-
-  const hasRecentlyUsedEmojis = latestEmojis.length > 0;
-
-  root.querySelector('.js-clear-latest-btn').classList.toggle('is-hidden', !hasRecentlyUsedEmojis);
-
-  root.querySelector('.js-latest-target').innerHTML = hasRecentlyUsedEmojis ?
-    latestEmojis
-      .map(({ emoji, name }) => `<a class='emoji js-clickable-emoji' href='#${__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3_utils_tokenize__["a" /* default */])(name)}-emoji' title='${name}'>${emoji}</a>`)
-      .join('') :
-    '<span class="no-emojis">Nothing yet.</span>';
-}
-
-/**
- * Clear the history, and refresh the 'recent emoji' view.
- * @name clearHistoryAndUpdateView
- * @param {Event} event 
- */
-const clearHistoryAndUpdateView = (event) => {
-  __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4_picker_history__["b" /* clearHistory */])();
-  updateRecentlyUsedEmojis(event.currentTarget);
-};
-
-/**
- * Store a new emoji in the persisted history,
- * and refresh the 'recent emoji' view.
- * @name storeEmojiAndUpdateView
- * @param {Object} emoji 
- * @param {HTMLElement} root 
- */
-const storeEmojiAndUpdateView = (emoji, root) => {
-  __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4_picker_history__["c" /* storeEmoji */])(emoji);
-  updateRecentlyUsedEmojis(root);
-};
-
-
 /***/ }),
-/* 8 */
+/* 9 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -633,12 +704,12 @@ const resetQueryField = (event) => {
 
 
 /***/ }),
-/* 9 */
+/* 10 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_listen_events__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_lodash__ = __webpack_require__(16);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_lodash__ = __webpack_require__(17);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_lodash___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_lodash__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return listenScroll; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return scrollTo; });
@@ -646,8 +717,17 @@ const resetQueryField = (event) => {
 
 
 
+/**
+ * Remove scroll event listener.
+ * @name removeScrollListener
+ * @private
+ */
 let removeScrollListener;
 
+/**
+ * Register scroll event listener on the `js-scrollable` element.
+ * @param {HTMLElement} root 
+ */
 const listenScroll = (root) => {
   const scrollableEl = root.querySelector('.js-scrollable');
   removeScrollListener = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_listen_events__["a" /* default */])('scroll', scrollableEl, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1_lodash__["debounce"])(onScroll, 50, { trailing: true }));
@@ -656,7 +736,14 @@ const listenScroll = (root) => {
 
 
 
-
+/**
+ * It's the scroll event handler.
+ * Determines the currently selected category on the basis
+ * of the scroll height of the container box.
+ * @name onScroll
+ * @private
+ * @param {Event} event 
+ */
 function onScroll(event) {
   const scrollLevel = event.target.scrollTop;
 
@@ -668,6 +755,13 @@ function onScroll(event) {
   markSelected(selectedShelfKey);
 }
 
+/**
+ * Updates DOM elements on the basis of the currently
+ * selected category.
+ * @name markSelected
+ * @private
+ * @param {String} key 
+ */
 const markSelected = (key) => {
   const currentlySelectedCategoryEl = document.querySelector('.js-selectable-category.is-selected');
   const selectedCategoryEl = document.querySelector(`[data-js-section-key="${key}"]`);
@@ -677,16 +771,22 @@ const markSelected = (key) => {
   }
 };
 
+/**
+ * Toggles the `className` from the given `elems`.
+ * @name toggleClass
+ * @private
+ * @param {HTMLElement[]} elems 
+ * @param {String} className 
+ * @param {Boolean} force 
+ */
 const toggleClass = (elems, className, force) => 
   (Array.isArray(elems) ? elems : [elems])
     .forEach(el => el.classList.toggle(className, force));
 
 
 
-
-
-
 /**
+ * It's the click on category event handler.
  * @name scrollTo
  * @param {Event} event 
  */
@@ -711,7 +811,7 @@ const scrollTo = (event) => {
 
 
 /***/ }),
-/* 10 */
+/* 11 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -722,7 +822,7 @@ const collapseWhiteSpaces = (str) => str.replace(/\s+/g, '-');
 
 
 /***/ }),
-/* 11 */
+/* 12 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -741,7 +841,7 @@ const compose =
 
 
 /***/ }),
-/* 12 */
+/* 13 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -752,7 +852,7 @@ const lowercase = (str) => str.toLowerCase();
 
 
 /***/ }),
-/* 13 */
+/* 14 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -763,14 +863,14 @@ const stripSymbols = (str) => str.replace(/[&]/g, '');
 
 
 /***/ }),
-/* 14 */
+/* 15 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_utils_compose__ = __webpack_require__(11);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_utils_lowercase__ = __webpack_require__(12);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_utils_collapse_white_spaces__ = __webpack_require__(10);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_utils_strip_symbols__ = __webpack_require__(13);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_utils_compose__ = __webpack_require__(12);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_utils_lowercase__ = __webpack_require__(13);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_utils_collapse_white_spaces__ = __webpack_require__(11);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_utils_strip_symbols__ = __webpack_require__(14);
 
 
 
@@ -784,7 +884,7 @@ const tokenize = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_utils_compose
 
 
 /***/ }),
-/* 15 */
+/* 16 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -829,7 +929,7 @@ const matches = (target, selector, boundElement) => {
 
 
 /***/ }),
-/* 16 */
+/* 17 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global, module) {var __WEBPACK_AMD_DEFINE_RESULT__;/**
@@ -17918,10 +18018,10 @@ const matches = (target, selector, boundElement) => {
   }
 }.call(this));
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(17), __webpack_require__(18)(module)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(18), __webpack_require__(19)(module)))
 
 /***/ }),
-/* 17 */
+/* 18 */
 /***/ (function(module, exports) {
 
 var g;
@@ -17948,7 +18048,7 @@ module.exports = g;
 
 
 /***/ }),
-/* 18 */
+/* 19 */
 /***/ (function(module, exports) {
 
 module.exports = function(module) {
