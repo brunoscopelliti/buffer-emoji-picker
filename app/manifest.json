@@ -2,8 +2,13 @@
   "manifest_version": 2,
 
   "name": "Buffer Emoji Picker",
-  "description": "Loads an emoji picker",
-  "version": "0.9",
+  "description": "Emoji picker for buffer.com",
+  "version": "0.10",
+  "icons": {
+    "16": "icon16.png",
+    "48": "icon48.png",
+    "128": "icon128.png"
+  },
 
   "background": {
     "scripts": ["background.js"]
