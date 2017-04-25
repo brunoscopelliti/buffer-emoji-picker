@@ -1,6 +1,5 @@
 
 import listen from 'listen-events';
-import { debounce } from 'lodash';
 
 /**
  * Remove scroll event listener.
@@ -15,7 +14,7 @@ let removeScrollListener;
  */
 const listenScroll = (root) => {
   const scrollableEl = root.querySelector('.js-scrollable');
-  removeScrollListener = listen('scroll', scrollableEl, debounce(onScroll, 50, { trailing: true }));
+  removeScrollListener = listen('scroll', scrollableEl, onScroll);
 };
 
 export { listenScroll };

@@ -130,6 +130,9 @@ $bufferBorderColor: #ced7df;
     box-sizing: border-box;
     margin: 10px 0;
     padding: 5px 0px;
+    &:last-child {
+      padding-bottom: 60px;
+    }
   }
   .emoji-shelf-title {
     border-bottom: 1px solid $bufferBorderColor;
@@ -151,7 +154,7 @@ $bufferBorderColor: #ced7df;
 
   .emojis {
     font-size: 0;
-    line-height: 34px;
+    line-height: normal;
     padding-left: 8px;
   }
   .emoji {

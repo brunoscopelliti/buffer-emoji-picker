@@ -1,5 +1,6 @@
 
 const path = require('path');
+const BabiliPlugin = require('babili-webpack-plugin');
 
 const appFolder = path.resolve(__dirname, 'js');
 
@@ -18,7 +19,9 @@ const config = {
     rules: []
   },
 
-  plugins: [],
+  plugins: [
+    new BabiliPlugin()
+  ],
 
   output: {
     path: path.resolve(__dirname, 'app'),
