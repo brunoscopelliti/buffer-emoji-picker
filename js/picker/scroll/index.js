@@ -36,7 +36,7 @@ function onScroll(event) {
   const selectedShelf = shelfElems.reduce((selectedEl, shelfEl) => scrollLevel + 25 > shelfEl.offsetTop ? shelfEl : selectedEl, shelfElems[0]);
   const selectedShelfKey = selectedShelf.dataset['jsSection'];
 
-  markSelected(selectedShelfKey);
+  markSelected(event.target.closest('.js-root'), selectedShelfKey);
 }
 
 /**
@@ -44,15 +44,18 @@ function onScroll(event) {
  * selected category.
  * @name markSelected
  * @private
+ * @param {HTMLElement} root 
  * @param {String} key 
  */
-const markSelected = (key) => {
-  const currentlySelectedCategoryEl = document.querySelector('.js-selectable-category.is-selected');
-  const selectedCategoryEl = document.querySelector(`[data-js-section-key="${key}"]`);
+const markSelected = (root, key) => {
+  const currentlySelectedCategoryEl = root.querySelector('.js-selectable-category.is-selected');
+  const selectedCategoryEl = root.querySelector(`[data-js-section-key="${key}"]`);
 
   if (currentlySelectedCategoryEl != selectedCategoryEl){
     toggleClass([currentlySelectedCategoryEl, selectedCategoryEl], 'is-selected');
   }
+
+  root.focus();
 };
 
 /**
@@ -87,7 +90,7 @@ const scrollTo = (event) => {
     setTimeout(listenScroll, 100, event.currentTarget);
   }
 
-  markSelected(event.target.dataset['jsSectionKey']);
+  markSelected(event.target.closest('.js-root'), event.target.dataset['jsSectionKey']);
   event.preventDefault();
 }
 
