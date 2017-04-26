@@ -464,66 +464,99 @@
   ],
   "Objects": [
     {
-      "name": "balloon",
-      "emoji": "🎈"
-    }, {
-      "name": "lollipop",
-      "emoji": "🍭"
-    }, {
-      "name": "dice",
-      "emoji": "🎲"
-    }, {
-      "name": "checkered flag",
-      "emoji": "🏁"
-    }, {
-      "name": "videogame",
-      "emoji": "🎮"
+      "name": "alarm clock",
+      "emoji": "⏰"
     }, {
       "name": "art",
       "emoji": "🎨"
     }, {
-      "name": "alarm clock",
-      "emoji": "⏰"
+      "name": "balloon",
+      "emoji": "🎈"
     }, {
-      "name": "gift",
-      "emoji": "🎁"
+      "name": "bell",
+      "emoji": "🔔"
     }, {
-      "name": "shell",
-      "emoji": "🐚"
+      "name": "bomb",
+      "emoji": "💣"
     }, {
-      "name": "wrench",
-      "emoji": "🔧"
+       "name": "book", 
+       "emoji": "📖"
     }, {
       "name": "bulb",
       "emoji": "💡",
       "featured": true
     }, {
-      "name": "rocket",
-      "emoji": "🚀"
+       "name": "car", 
+       "emoji": "🚗"
     }, {
-      "name": "bell",
-      "emoji": "🔔"
+      "name": "checkered flag",
+      "emoji": "🏁"
     }, {
-      "name": "trophy",
-      "emoji": "🏆"
-    }, {
-      "name": "ring",
-      "emoji": "💍"
+       "name": "clapper", 
+       "emoji": "🎬"
     }, {
       "name": "crown",
       "emoji": "👑"
     }, {
+      "name": "crystal ball",
+      "emoji": "🔮"
+    }, {
       "name": "diamond",
       "emoji": "💎"
+    }, {
+      "name": "dice",
+      "emoji": "🎲"
+    }, {
+      "name": "gift",
+      "emoji": "🎁"
+    }, {
+       "name": "guitar", 
+       "emoji": "🎸"
+    }, {
+       "name": "hammer", 
+       "emoji": "🔨"
+    }, {
+       "name": "hourglass", 
+       "emoji": "⏳"
+    }, {
+       "name": "keyboard", 
+       "emoji": "🎹"
+    }, {
+      "name": "lollipop",
+      "emoji": "🍭"
+    }, {
+       "name": "postal horn", 
+       "emoji": "📯"
+    }, {
+      "name": "ring",
+      "emoji": "💍"
+    }, {
+      "name": "rocket",
+      "emoji": "🚀"
+    }, {
+       "name": "saxophone", 
+       "emoji": "🎷"
+    }, {
+      "name": "shell",
+      "emoji": "🐚"
+    }, {
+      "name": "trophy",
+      "emoji": "🏆"
+    }, {
+       "name": "trumpet", 
+       "emoji": "🎺"
     }, {
       "name": "tulip",
       "emoji": "🌷"
     }, {
-      "name": "bomb",
-      "emoji": "💣"
+      "name": "videogame",
+      "emoji": "🎮"
     }, {
-      "name": "crystal ball",
-      "emoji": "🔮"
+       "name": "violin", 
+       "emoji": "🎻"
+    }, {
+      "name": "wrench",
+      "emoji": "🔧"
     }
   ],
   "Symbols": [
@@ -580,6 +613,18 @@
        "name": "sparkles", 
        "emoji": "✨"
     }, {
+       "name": "world", 
+       "emoji": "🌐"
+    }, {
+       "name": "registered", 
+       "emoji": "®️"
+    }, {
+       "name": "locked", 
+       "emoji": "🔒"
+    }, {
+       "name": "unlocked", 
+       "emoji": "🔓"
+    }, {
        "name": "four leaf clover", 
        "emoji": "🍀"
     }, {
@@ -624,6 +669,21 @@
     }, {
        "name": "exclamation", 
        "emoji": "❕"
+    }, {
+       "name": "interrobang", 
+       "emoji": "⁉️"
+    }, {
+       "name": "information", 
+       "emoji": "ℹ️"
+    }, {
+       "name": "warning", 
+       "emoji": "⚠️"
+    }, {
+       "name": "underage", 
+       "emoji": "🔞"
+    }, {
+       "name": "no entry", 
+       "emoji": "⛔️"
     }
   ]
 }
