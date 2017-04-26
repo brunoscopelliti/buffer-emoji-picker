@@ -1,7 +1,7 @@
 
 import {
   writingAreaSelector,
-  uploaderButtonSelector,
+  actionsButtonBoxSelector,
   dialogLayerClassName
 } from 'selectors';
 
@@ -23,21 +23,19 @@ const isPickerButtonReady = element => element.querySelector(pickerButtonSelecto
 /**
  * Inject the emoji picker button in the page.
  * @name tryInjectButton
- * @param {HTMLElement} pivotEl Button will be created just before this element
+ * @param {HTMLElement} parentEl Button will be created as first child of this element
  */
-const tryInjectButton = (pivotEl) => {
-  if (pivotEl == null){
+const tryInjectButton = (parentEl) => {
+  if (parentEl == null){
     return;
   }
 
-  const directAncestorEl = pivotEl.parentElement;
-
-  if (isPickerButtonReady(directAncestorEl)){
+  if (isPickerButtonReady(parentEl)){
     return;
   }
 
   const buttonEl = createButton();
-  pivotEl.before(buttonEl);
+  parentEl.prepend(buttonEl);
 };
 
 
@@ -69,8 +67,8 @@ const tryInjectButton = (pivotEl) => {
 
 const editorObserver = new MutationObserver((mutations) => {
   const target = mutations[0].target;
-  const pivotEl = target.querySelector(uploaderButtonSelector);
-  tryInjectButton(pivotEl);
+  const buttonBox = target.querySelector(actionsButtonBoxSelector);
+  tryInjectButton(buttonBox);
 });
 
 editorObserver.observe(document.querySelector(writingAreaSelector) || document.body, { childList: true });
@@ -83,8 +81,8 @@ const layerObserver = new MutationObserver(() => {
     return;
   }
 
-  const pivotEl = layer.querySelector(uploaderButtonSelector);
-  tryInjectButton(pivotEl);
+  const buttonBox = layer.querySelector(actionsButtonBoxSelector);
+  tryInjectButton(buttonBox);
 });
 
 layerObserver.observe(document.body, { childList: true });

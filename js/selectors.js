@@ -5,7 +5,7 @@
 const writingAreaSelector = '#overlay-wrapper:not(.ui-dialog-content) #sharer';
 const genericWritingAreaSelector = '#sharer';
 const editorInputSelector = '#composer';
-const uploaderButtonSelector = '#media-uploader';
+const actionsButtonBoxSelector = '#overlay-actions';
 const dialogLayerClassName = 'ui-dialog';
 
 
@@ -13,6 +13,6 @@ export {
   writingAreaSelector,
   genericWritingAreaSelector,
   editorInputSelector,
-  uploaderButtonSelector,
+  actionsButtonBoxSelector,
   dialogLayerClassName
 };
