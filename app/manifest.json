@@ -3,7 +3,7 @@
 
   "name": "Buffer Emoji Picker",
   "description": "Emoji picker for buffer.com",
-  "version": "0.11",
+  "version": "0.12",
   "icons": {
     "16": "icon16.png",
     "48": "icon48.png",

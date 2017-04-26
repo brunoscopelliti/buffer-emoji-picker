@@ -32,6 +32,8 @@
   /****
    * Emojis
    */ }
+  .chrome-ext-emoji-picker:focus {
+    outline: none; }
   .chrome-ext-emoji-picker a {
     text-decoration: none !important; }
   .chrome-ext-emoji-picker button.contextual-btn {
@@ -106,7 +108,7 @@
     margin: 10px 0;
     padding: 5px 0px; }
     .chrome-ext-emoji-picker .emoji-shelf-section:last-child {
-      padding-bottom: 60px; }
+      padding-bottom: 25px; }
   .chrome-ext-emoji-picker .emoji-shelf-title {
     border-bottom: 1px solid #ced7df;
     font-size: 15px;
@@ -132,3 +134,6 @@
     width: 28px; }
     .chrome-ext-emoji-picker .emoji:hover {
       outline: -webkit-focus-ring-color auto 5px; }
+  .chrome-ext-emoji-picker.is-window .emoji[href='#metal-emoji'],
+  .chrome-ext-emoji-picker.is-window .emoji[href='#lion-emoji'] {
+    display: none; }
