@@ -28,6 +28,16 @@ import {
 
 import updateValue from 'picker/textarea';
 
+/**
+ * @name getPlatformCssClass
+ * @returns {String}
+ */
+const getPlatformCssClass = () => {
+  if (navigator.platform.match(/(Mac|iPhone|iPod|iPad)/i)){
+    return 'is-apple';
+  }
+  return 'is-window';
+};
 
 /**
  * @name setupEmojiPicker
@@ -78,8 +88,12 @@ const setupEmojiPicker = (root, button) => {
    * 
    * @returns {Boolean}
    */
-  const isClickOnPicker = (element) =>
-    element.matches('.chrome-ext-emoji-picker') || (element == document.body ? false : isClickOnPicker(element.parentElement));
+  const isClickOnPicker = (element) => {
+    if (element == null){
+      return false;
+    }
+    return element.matches('.chrome-ext-emoji-picker') || (element == document.body ? false : isClickOnPicker(element.parentElement));
+  };
 
   /**
    * @name destroyPicker
@@ -89,7 +103,7 @@ const setupEmojiPicker = (root, button) => {
     stopListenClicksOnBody();
   };
 
-
+  root.classList.add(getPlatformCssClass());
   button.before(root);
 };
 

@@ -135,7 +135,7 @@ $bufferBorderColor: #ced7df;
     margin: 10px 0;
     padding: 5px 0px;
     &:last-child {
-      padding-bottom: 60px;
+      padding-bottom: 25px;
     }
   }
   .emoji-shelf-title {
@@ -172,5 +172,10 @@ $bufferBorderColor: #ced7df;
     &:hover {
       outline: -webkit-focus-ring-color auto 5px;
     }
+  }
+  
+  &.is-window .emoji[href='#metal-emoji'],
+  &.is-window .emoji[href='#lion-emoji'] {
+    display: none;
   }
 }
