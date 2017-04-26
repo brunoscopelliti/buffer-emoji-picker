@@ -2,8 +2,11 @@
   "manifest_version": 2,
 
   "name": "Buffer Emoji Picker",
+  "shorname": "Buffer Emoji",
   "description": "Emoji picker for buffer.com",
-  "version": "0.12",
+  "version": "1.0.0",
+  "author": "Bruno Scopelliti",
+
   "icons": {
     "16": "icon16.png",
     "48": "icon48.png",
