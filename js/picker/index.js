@@ -105,6 +105,7 @@ const setupEmojiPicker = (root, button) => {
 
   root.classList.add(getPlatformCssClass());
   button.before(root);
+  setTimeout(() => root.focus(), 50);
 };
 
 export default setupEmojiPicker;
