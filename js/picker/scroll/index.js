@@ -53,9 +53,8 @@ const markSelected = (root, key) => {
 
   if (currentlySelectedCategoryEl != selectedCategoryEl){
     toggleClass([currentlySelectedCategoryEl, selectedCategoryEl], 'is-selected');
+    currentlySelectedCategoryEl.blur();
   }
-
-  root.focus();
 };
 
 /**
